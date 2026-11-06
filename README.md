@@ -1,4 +1,4 @@
-# still
+# Still
 
 yoga, pilates, breathwork, meditation and sleep sounds — an installable web app.
 
