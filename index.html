@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>still — yoga, pilates &amp; mindfulness</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#F3F0EA">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="still">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="description" content="yoga, pilates, breathwork, meditation and sleep sounds.">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>html.no-ai .tabs a[data-v="coach"],html.no-ai #ask,html.no-ai #pask,html.no-ai #reflect{display:none!important}</style>
+<script>if(!(window.claude&&window.claude.use))document.documentElement.classList.add("no-ai");</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F0EA; --card:#FBFAF7; --ink:#2A2925; --ink2:#6E6A62; --ink3:#A39E94;
+  --line:#E4DFD6; --sage:#7F8E77; --sage-soft:#E3E8DE; --clay:#C59A74; --clay-soft:#F1E5D9;
+  --far:#C3BBAE; --r:22px;
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#E9E5DD;color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+a{color:inherit}
+#app{position:relative;max-width:440px;height:100dvh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+@media (min-width:520px){#app{height:min(900px,calc(100dvh - 40px));margin-top:20px;border-radius:34px;box-shadow:0 30px 80px -30px rgba(40,35,25,.35)}}
+#view{flex:1;overflow-y:auto;padding:calc(18px + env(safe-area-inset-top)) 22px 110px}
+.tabs{position:absolute;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));display:flex;background:rgba(251,250,247,.92);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:20px;padding:6px;z-index:5}
+.tabs a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 0;border-radius:14px;font-size:11px;font-weight:500;color:var(--ink3)}
+.tabs a svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tabs a.on{color:var(--ink);background:var(--sage-soft)}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+h1{font-family:var(--serif);font-weight:300;font-size:34px;line-height:1.08;letter-spacing:-.01em;margin:6px 0 4px}
+h2{font-family:var(--serif);font-weight:400;font-size:21px;margin:28px 0 12px}
+h3{font-family:var(--serif);font-weight:400;font-size:18px}
+.muted{color:var(--ink2)}
+.small{font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.seg{display:flex;background:#EAE6DE;border-radius:14px;padding:4px;margin-top:16px}
+.seg button{flex:1;padding:8px 4px;border-radius:10px;font-size:13px;font-weight:500;color:var(--ink2)}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;background:var(--ink);color:#F7F4EE;font-weight:500;font-size:14px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sage{background:var(--sage)}
+.btn.block{width:100%}
+.row{display:flex;align-items:center;gap:12px}
+.between{justify-content:space-between}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin:0 -22px;padding-left:22px;padding-right:22px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--line);font-size:13px;background:var(--card);color:var(--ink2)}
+.chip.on{background:var(--ink);color:#F7F4EE;border-color:var(--ink)}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--sage-soft);color:#56634F}
+.tag.pilates{background:var(--clay-soft);color:#8C6544}
+.tag.meditation{background:#E5E2EE;color:#5E5878}
+.tag.mindfulness{background:#E2ECEC;color:#4C6A6A}
+.session{display:flex;gap:14px;align-items:center;padding:12px;margin-bottom:10px;cursor:pointer;text-align:left;width:100%}
+.thumb{width:84px;height:84px;flex:none;border-radius:16px;background:var(--bg);display:grid;place-items:center;overflow:hidden}
+.thumb svg{width:100%;height:100%}
+.session .meta{font-size:12px;color:var(--ink3);margin-top:4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pose{padding:10px;text-align:left;cursor:pointer}
+.pose .thumb{width:100%;height:110px;margin-bottom:8px}
+.pose b{font-weight:500;font-size:14px;display:block}
+.intent{font-family:var(--serif);font-weight:300;font-size:22px;line-height:1.3}
+.week{display:flex;justify-content:space-between;margin-top:14px}
+.week div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;color:var(--ink3)}
+.week i{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:block}
+.week i.done{background:var(--sage);border-color:var(--sage)}
+.week i.today{border:1.5px solid var(--ink)}
+.bars{display:flex;gap:14px;margin-top:12px}
+.bars div{flex:1;font-size:12px;color:var(--ink2)}
+.bars span{display:block;height:6px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden}
+.bars span b{display:block;height:100%;background:var(--sage);border-radius:3px}
+/* check-in */
+.scale{margin:22px 0}
+.scale .row{margin-bottom:10px}
+.dots{display:flex;gap:8px}
+.dots button{flex:1;height:44px;border-radius:14px;border:1px solid var(--line);background:var(--card);font-size:14px;color:var(--ink2);transition:.2s}
+.dots button.on{background:var(--ink);color:#F7F4EE;border-color:var(--ink)}
+.ends{display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);margin-top:6px}
+textarea{width:100%;min-height:84px;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:12px 14px;resize:vertical;outline:none}
+textarea:focus,input:focus{border-color:var(--sage)}
+.hist{display:grid;grid-template-columns:52px repeat(14,1fr);gap:4px;align-items:center;font-size:11px;color:var(--ink3)}
+.hist i{aspect-ratio:1;border-radius:50%;background:var(--line);display:block}
+/* coach */
+.chat{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.msg{max-width:86%;padding:11px 14px;border-radius:18px;white-space:pre-wrap;font-size:14.5px}
+.msg.u{align-self:flex-end;background:var(--ink);color:#F7F4EE;border-bottom-right-radius:6px}
+.msg.a{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+.msg img{max-width:160px;border-radius:12px;display:block;margin-bottom:6px}
+.composer{position:absolute;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));display:flex;gap:8px;align-items:flex-end;z-index:4}
+.composer .box{flex:1;display:flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:4px 4px 4px 14px}
+.composer input[type=text]{flex:1;border:0;background:none;outline:none;padding:9px 0;min-width:0}
+.icon-btn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none}
+.icon-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.send{background:var(--ink);color:#F7F4EE}
+.preview{font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:8px;margin-top:8px}
+.preview img{width:40px;height:40px;object-fit:cover;border-radius:8px}
+/* overlays */
+.overlay{position:absolute;inset:0;background:var(--bg);z-index:20;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.overlay.open{transform:none}
+.ov-head{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) 18px 6px}
+.ov-body{flex:1;overflow-y:auto;padding:0 22px 30px}
+.stage{position:relative;height:290px;border-radius:28px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;margin-top:8px}
+.stage svg.fig{width:100%;height:100%}
+.orb{position:absolute;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#DDE5D6,#A9B8A0 70%);opacity:.55;transition:transform 1s linear}
+.orb.big{width:180px;height:180px;opacity:.9}
+.orb-label{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.progress{height:3px;background:var(--line);border-radius:2px;margin:18px 0 0;overflow:hidden}
+.progress b{display:block;height:100%;background:var(--ink);width:0;transition:width .25s linear}
+.timer{font-family:var(--serif);font-weight:300;font-size:46px;letter-spacing:-.02em}
+.controls{display:flex;justify-content:center;align-items:center;gap:22px;margin:14px 0 6px}
+.controls .icon-btn{width:48px;height:48px;border:1px solid var(--line)}
+.controls .play{width:68px;height:68px;background:var(--ink);color:#F7F4EE;border:0}
+.controls .play svg{width:26px;height:26px}
+.steps{display:flex;gap:4px;margin-top:8px}
+.steps i{flex:1;height:3px;border-radius:2px;background:var(--line)}
+.steps i.done{background:var(--ink3)}
+.steps i.cur{background:var(--ink)}
+details{border-top:1px solid var(--line);padding:14px 0}
+details summary{cursor:pointer;font-weight:500;list-style:none;display:flex;justify-content:space-between}
+details summary::after{content:"+";color:var(--ink3)}
+details[open] summary::after{content:"–"}
+details ul{margin:10px 0 0 18px;color:var(--ink2);font-size:14px}
+details li{margin-bottom:4px}
+.video{display:flex;gap:12px;align-items:center;padding:14px;text-decoration:none;margin-top:8px}
+.video .play-dot{width:44px;height:44px;border-radius:12px;background:var(--clay-soft);display:grid;place-items:center;flex:none}
+.video .play-dot svg{width:18px;height:18px;fill:#8C6544}
+.note{font-size:12px;color:var(--ink3);margin-top:8px}
+.fade{animation:fade .5s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.typing{color:var(--ink3)}
+/* daily + progress */
+.tabs a{font-size:10.5px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.stat{padding:14px 16px}
+.stat b{display:block;font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.1}
+.stat span{font-size:12px;color:var(--ink2)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}
+.cal span{font-size:10px;color:var(--ink3);text-align:center}
+.cal i{aspect-ratio:1;border-radius:9px;background:#EDE9E2;display:block}
+.cal i.today{outline:1.5px solid var(--ink);outline-offset:1px}
+.exlist{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 16px}
+.exlist span{font-size:12px;padding:5px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink2)}
+.feel{display:flex;gap:8px;margin-top:10px}
+.feel button{flex:1;padding:11px 4px;border-radius:14px;border:1px solid var(--line);background:var(--card);font-size:13px;font-weight:500;color:var(--ink2)}
+.feel button.on{background:var(--ink);color:#F7F4EE;border-color:var(--ink)}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line);font-size:14px}
+.hrow:first-of-type{border-top:0}
+.hrow small{display:block;color:var(--ink3);font-size:12px}
+.pill{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--bg);color:var(--ink2);white-space:nowrap}
+.meter{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:10px}
+.meter b{display:block;height:100%;background:var(--clay);border-radius:3px}
+.done-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#56634F;background:var(--sage-soft);padding:4px 10px;border-radius:999px}
+/* intentions, relief, needs */
+.tag.breath{background:#E1E9EF;color:#4A6274}
+.intent-card{margin-top:18px;background:linear-gradient(160deg,#FBFAF7,#EEF1EA)}
+.quote-by{font-size:13px;color:var(--ink2);margin-top:8px;font-style:italic}
+.relief{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.relief button{text-align:left;padding:14px;cursor:pointer}
+.relief b{display:block;font-weight:500;font-size:14px}
+.relief span{font-size:12px;color:var(--ink2)}
+.help{background:#F4EEE6;border-color:#E8DCCB;font-size:13px;color:var(--ink2);margin:6px 0 14px}
+.help b{color:var(--ink);font-weight:600}
+/* all-lowercase look (what people type stays as typed) */
+html,body,body *{text-transform:lowercase!important}
+input,textarea,.msg.u{text-transform:none!important}
+.eyebrow,.tag,.orb-label{letter-spacing:.04em!important}
+.brand{font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:.02em;color:var(--sage)}
+.sound{margin:16px 0 4px}
+.sound .chips{margin:8px 0 0;padding:0;flex-wrap:wrap;overflow:visible}
+.vol{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--ink2);margin-top:10px}
+.vol input{flex:1;accent-color:var(--sage)}
+.sleepbar{position:absolute;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:6;display:flex;align-items:center;gap:10px;background:var(--ink);color:#F7F4EE;border-radius:16px;padding:8px 8px 8px 14px;font-size:13px}
+.sleepbar[hidden]{display:none}
+.sleepbar.high{bottom:calc(140px + env(safe-area-inset-bottom))}
+.sleepbar svg{width:18px;height:18px;fill:#F7F4EE;flex:none}
+.sleepbar button{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12px;font-weight:500}
+#app.has-bar #view{padding-bottom:170px}
+.sleep-card{display:flex;gap:14px;align-items:center;width:100%;text-align:left;cursor:pointer;background:linear-gradient(160deg,#2F3340,#454B5E);color:#F1EEF7;border-color:#3A3F4E}
+.sleep-card .muted{color:#C9C6D6}
+.moon{width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.08);display:grid;place-items:center;flex:none}
+.moon svg{width:26px;height:26px;fill:#E9E4F7}
+</style>
+</head>
+<body>
+<div id="app">
+  <main id="view"></main>
+  <nav class="tabs" id="tabs">
+    <a href="#today" data-v="today"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Today</a>
+    <a href="#practice" data-v="practice"><svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M12 7v7M6 10l6 1 6-1M9 21l3-7 3 7"/></svg>Practice</a>
+    <a href="#checkin" data-v="checkin"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg>Check-in</a>
+    <a href="#progress" data-v="progress"><svg viewBox="0 0 24 24"><path d="M5 20v-8M12 20V5M19 20v-5"/></svg>Progress</a>
+    <a href="#coach" data-v="coach"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>Coach</a>
+  </nav>
+  <div class="sleepbar" id="sleepbar" hidden><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span id="sbtxt" style="flex:1"></span><button id="sbopen">Timer</button><button id="sbstop">Stop</button></div>
+  <section class="overlay" id="player"></section>
+  <section class="overlay" id="sheet"></section>
+</div>
+
+<script>
+/* ------------------------------------------------------------------
+   POSES — 2D joint keyframes for the line-figure animations.
+   h head · n neck · m mid-spine · p pelvis · le/lh near elbow/hand
+   re/rh far elbow/hand · lk/lf near knee/foot · rk/rf far knee/foot
+------------------------------------------------------------------- */
+const STAND={h:[120,32],n:[120,48],m:[120,72],p:[120,98],le:[121,76],lh:[123,104],re:[118,76],rh:[117,104],lk:[122,139],lf:[125,180],rk:[118,139],rf:[115,180]};
+const UPSAL={...STAND,h:[119,31],le:[123,20],lh:[126,-8],re:[119,20],rh:[118,-8]};
+const FOLD={h:[142,160],n:[142,142],m:[134,118],p:[118,98],le:[146,162],lh:[146,180],re:[140,162],rh:[138,180],lk:[120,139],lf:[124,180],rk:[117,139],rf:[114,180]};
+const PLANK={h:[181,114],n:[168,122],m:[143,135],p:[119,147],le:[170,151],lh:[172,180],re:[166,151],rh:[166,180],lk:[83,165],lf:[48,180],rk:[83,163],rf:[46,178]};
+const PLANK_LIFT={...PLANK,lk:[84,148],lf:[48,136]};
+const DOG={h:[168,142],n:[160,128],m:[141,110],p:[122,96],le:[172,154],lh:[184,180],re:[168,154],rh:[180,180],lk:[102,138],lf:[82,180],rk:[100,138],rf:[78,180]};
+const QUAD={h:[180,118],n:[165,124],m:[130,128],p:[95,138],le:[166,152],lh:[166,180],re:[163,152],rh:[162,180],lk:[96,180],lf:[56,180],rk:[93,180],rf:[52,180]};
+const COW={...QUAD,m:[130,142],h:[183,105]};
+const CAT={...QUAD,m:[130,108],h:[172,141]};
+const WAR_A={h:[120,57],n:[120,73],m:[120,100],p:[120,128],le:[150,73],lh:[178,73],re:[90,73],rh:[62,73],lk:[158,138],lf:[160,180],rk:[89,154],rf:[58,180]};
+const WAR_B={h:[120,63],n:[120,79],m:[120,106],p:[120,134],le:[150,79],lh:[179,78],re:[90,79],rh:[61,78],lk:[160,142],lf:[160,180],rk:[89,157],rf:[58,180]};
+const TREE_A={h:[120,32],n:[120,48],m:[120,72],p:[120,98],le:[100,82],lh:[119,70],re:[140,82],rh:[121,70],lk:[122,139],lf:[122,180],rk:[86,126],rf:[116,134]};
+const TREE_B={...TREE_A,le:[108,22],lh:[118,-4],re:[132,22],rh:[122,-4]};
+const CHILD_A={h:[152,170],n:[136,160],m:[110,158],p:[84,163],le:[164,170],lh:[192,177],re:[162,172],rh:[190,179],lk:[122,178],lf:[82,180],rk:[120,179],rf:[80,180]};
+const CHILD_B={...CHILD_A,h:[150,158],n:[134,148],m:[108,148],p:[86,158],le:[162,164],re:[160,166]};
+const LUNGE_A={h:[123,69],n:[122,85],m:[121,112],p:[120,140],le:[136,110],lh:[154,132],re:[132,112],rh:[150,134],lk:[160,138],lf:[164,180],rk:[80,178],rf:[42,178]};
+const LUNGE_B={...LUNGE_A,h:[122,68],le:[127,57],lh:[131,30],re:[124,57],rh:[127,30]};
+const BR_A={h:[186,168],n:[170,174],m:[144,176],p:[118,176],le:[145,178],lh:[120,179],re:[143,179],rh:[118,180],lk:[92,140],lf:[104,180],rk:[89,141],rf:[101,180]};
+const BR_B={...BR_A,m:[150,160],p:[128,142],lk:[88,134],lf:[100,180],rk:[86,135],rf:[97,180]};
+const SLBR_A={...BR_A,lk:[96,132],lf:[60,114]};
+const SLBR_B={...BR_B,lk:[90,128],lf:[52,118]};
+const HUN_A={h:[164,150],n:[150,160],m:[130,171],p:[110,176],le:[128,165],lh:[104,168],re:[126,167],rh:[102,170],lk:[76,154],lf:[44,132],rk:[78,156],rf:[46,134]};
+const HUN_B={...HUN_A,le:[128,157],lh:[104,157],re:[126,159],rh:[102,159]};
+const LIE_UP={h:[182,169],n:[165,176],m:[140,177],p:[110,177],le:[192,176],lh:[218,176],re:[190,177],rh:[216,178],lk:[70,177],lf:[30,178],rk:[70,178],rf:[30,179]};
+const SEAT_UP={...LIE_UP,h:[118,104],n:[116,120],m:[113,148],p:[110,174],le:[140,120],lh:[168,120],re:[138,122],rh:[166,122]};
+const SEAT_FOLD={...LIE_UP,h:[58,152],n:[72,146],m:[92,152],p:[110,174],le:[52,160],lh:[30,170],re:[54,162],rh:[32,172]};
+const SLS_A={h:[160,148],n:[148,160],m:[129,170],p:[110,176],le:[138,146],lh:[124,136],re:[136,148],rh:[122,138],lk:[122,140],lf:[96,140],rk:[76,160],rf:[44,145]};
+const SLS_B={...SLS_A,lk:SLS_A.rk,lf:SLS_A.rf,rk:SLS_A.lk,rf:SLS_A.lf};
+const SWIM_A={h:[176,156],n:[160,166],m:[135,170],p:[110,172],le:[185,150],lh:[211,142],re:[185,166],rh:[211,168],lk:[70,176],lf:[32,177],rk:[70,166],rf:[32,156]};
+const SWIM_B={...SWIM_A,le:[185,166],lh:[211,168],re:[185,150],rh:[211,142],lk:[70,166],lf:[32,156],rk:[70,176],rf:[32,177]};
+const CIRC={h:[182,169],n:[165,176],m:[140,177],p:[110,177],le:[140,179],lh:[115,180],re:[138,180],rh:[113,181],rk:[70,178],rf:[30,179]};
+const CIRC_F=[[[103,137],[96,98]],[[110,130],[110,84]],[[117,137],[124,98]],[[110,144],[110,112]]].map(([k,f])=>({...CIRC,lk:k,lf:f}));
+const TEASE={h:[143,107],n:[135,122],m:[122,148],p:[110,173],le:[110,113],lh:[86,104],re:[112,115],rh:[88,106],lk:[80,142],lf:[52,112],rk:[82,144],rf:[54,114]};
+const SEAT_A={h:[120,98],n:[120,114],m:[120,140],p:[120,166],le:[98,140],lh:[90,164],re:[142,140],rh:[150,164],lk:[82,174],lf:[128,178],rk:[158,174],rf:[112,178]};
+const SEAT_B={...SEAT_A,h:[120,95],n:[120,111],m:[120,138],le:[97,137],re:[143,137]};
+const SAV_A={h:[182,169],n:[165,176],m:[140,177],p:[110,177],le:[140,180],lh:[116,181],re:[138,180],rh:[114,181],lk:[70,178],lf:[30,177],rk:[70,179],rf:[30,179]};
+const SAV_B={...SAV_A,m:[140,174],n:[165,175]};
+const rot=(P,cx,cy,deg)=>{const r=deg*Math.PI/180,c=Math.cos(r),s=Math.sin(r),o={};for(const k in P){const[x,y]=P[k];o[k]=[cx+(x-cx)*c-(y-cy)*s,cy+(x-cx)*s+(y-cy)*c]}return o};
+// yoga additions
+const CHAIR={h:[131,65],n:[124,80],m:[114,104],p:[104,128],le:[134,56],lh:[144,32],re:[131,57],rh:[140,33],lk:[141,146],lf:[122,180],rk:[138,147],rf:[118,180]};
+const CRES_A={h:[123,69],n:[122,85],m:[121,112],p:[120,140],le:[136,108],lh:[150,132],re:[132,110],rh:[147,134],lk:[160,138],lf:[164,180],rk:[84,158],rf:[46,180]};
+const CRES_B={...CRES_A,le:[127,57],lh:[131,30],re:[124,57],rh:[127,30]};
+const TRI_A={h:[115,40],n:[115,56],m:[115,84],p:[115,112],le:[143,56],lh:[171,56],re:[87,56],rh:[59,56],lk:[141,146],lf:[168,180],rk:[89,146],rf:[62,180]};
+const TRI_B={h:[170,70],n:[158,82],m:[137,97],p:[115,112],le:[160,110],lh:[163,138],re:[156,54],rh:[154,26],lk:[141,146],lf:[168,180],rk:[89,146],rf:[62,180]};
+const W3_A={...STAND,le:[100,82],lh:[119,70],re:[140,82],rh:[121,70]};
+const W3_B={h:[188,90],n:[172,94],m:[146,96],p:[120,98],le:[198,92],lh:[224,90],re:[196,95],rh:[222,93],lk:[121,139],lf:[122,180],rk:[80,100],rf:[40,102]};
+const PRONE={h:[184,168],n:[168,176],m:[142,178],p:[114,178],le:[150,172],lh:[170,178],re:[148,173],rh:[168,179],lk:[74,178],lf:[34,179],rk:[74,179],rf:[34,180]};
+const COBRA={...PRONE,m:[138,168],n:[158,150],h:[170,137],le:[150,168],lh:[172,179],re:[148,169],rh:[170,180]};
+const KC_B={...BR_A,lk:[122,138],lf:[88,122],rk:[120,140],rf:[86,124],le:[146,158],lh:[126,146],re:[144,160],rh:[124,148]};
+// pilates additions
+const CC_A={...SLS_A,le:[146,138],lh:[166,140],re:[144,140],rh:[164,142]};
+const CC_B={...CC_A,lk:SLS_A.rk,lf:SLS_A.rf,rk:SLS_A.lk,rf:SLS_A.lf};
+const DLS_A={h:[160,148],n:[148,160],m:[129,170],p:[110,176],le:[128,152],lh:[118,140],re:[126,154],rh:[116,142],lk:[120,140],lf:[86,134],rk:[118,142],rf:[84,136]};
+const DLS_B={...DLS_A,le:[170,142],lh:[194,128],re:[168,144],rh:[192,130],lk:[76,156],lf:[42,138],rk:[76,158],rf:[42,140]};
+const RB_A={h:[120,124],n:[132,134],m:[124,154],p:[118,174],le:[116,150],lh:[96,156],re:[118,152],rh:[98,158],lk:[96,140],lf:[84,172],rk:[98,142],rf:[86,174]};
+const RB_B=rot(RB_A,118,178,55);
+const SIDE_A={h:[188,150],n:[170,162],m:[146,170],p:[116,174],le:[176,180],lh:[190,160],re:[150,162],rh:[146,180],lk:[76,175],lf:[36,177],rk:[76,177],rf:[36,179]};
+const SIDE_B={...SIDE_A,lk:[78,154],lf:[40,134]};
+const TT_A={h:[182,169],n:[165,176],m:[140,177],p:[110,177],le:[140,179],lh:[115,180],re:[138,180],rh:[113,181],lk:[112,137],lf:[74,137],rk:[110,139],rf:[72,139]};
+const TT_B={...TT_A,lk:[96,140],lf:[66,166]};
+const SC_A={h:[160,148],n:[148,160],m:[129,170],p:[110,176],le:[130,138],lh:[116,120],re:[128,140],rh:[114,122],lk:[118,136],lf:[124,96],rk:[74,160],rf:[38,146]};
+const SC_B={...SC_A,lk:SC_A.rk,lf:SC_A.rf,rk:SC_A.lk,rf:SC_A.lf};
+const BD_B={...QUAD,le:[190,122],lh:[216,120],rk:[60,136],rf:[24,134]};
+const PUSHD={h:[184,150],n:[170,156],m:[144,162],p:[119,168],le:[156,170],lh:[172,180],re:[152,171],rh:[166,180],lk:[83,174],lf:[48,180],rk:[83,173],rf:[46,179]};
+// more yoga
+const W1_A={...CRES_A,rk:[86,160],rf:[52,180]};
+const W1_B={...CRES_B,rk:[86,160],rf:[52,180]};
+const GOD_A={h:[120,40],n:[120,56],m:[120,82],p:[120,108],le:[146,62],lh:[150,36],re:[94,62],rh:[90,36],lk:[150,140],lf:[164,180],rk:[90,140],rf:[76,180]};
+const GOD_B={h:[120,54],n:[120,70],m:[120,96],p:[120,122],le:[146,76],lh:[148,50],re:[94,76],rh:[92,50],lk:[158,134],lf:[164,180],rk:[82,134],rf:[76,180]};
+const GARLAND={h:[138,94],n:[132,110],m:[122,132],p:[112,158],le:[150,124],lh:[146,108],re:[148,126],rh:[144,110],lk:[150,146],lf:[126,180],rk:[148,148],rf:[122,180]};
+const SPHINX={...PRONE,m:[140,172],n:[162,160],h:[176,148],le:[162,180],lh:[186,180],re:[160,180],rh:[184,180]};
+const LOCUST={...PRONE,h:[186,154],n:[170,164],m:[144,174],le:[148,166],lh:[124,168],re:[146,167],rh:[122,169],lk:[76,170],lf:[38,160],rk:[76,171],rf:[38,161]};
+const TW_A={...SAV_A,lk:[86,142],lf:[96,180],rk:[84,143],rf:[94,180]};
+const TW_B={...SAV_A,lk:[80,160],lf:[60,176],rk:[78,162],rf:[58,178]};
+const HB_A={...SAV_A,lk:[132,148],lf:[132,112],rk:[128,150],rf:[128,114],le:[156,150],lh:[136,128],re:[154,152],rh:[132,130]};
+const HB_B={...HB_A,lk:[126,146],lf:[122,110],rk:[122,148],rf:[118,112],lh:[130,126],rh:[126,128]};
+const LUW_A={...SAV_A,lk:[106,137],lf:[104,97],rk:[108,138],rf:[106,98]};
+const LUW_B={...LUW_A,m:[140,174],n:[165,175]};
+const PUPPY={h:[160,170],n:[146,164],m:[122,150],p:[96,136],le:[172,172],lh:[198,178],re:[170,173],rh:[196,179],lk:[96,180],lf:[56,180],rk:[93,180],rf:[52,180]};
+const BOAT={h:[140,108],n:[133,124],m:[122,150],p:[110,173],le:[110,126],lh:[86,126],re:[112,128],rh:[88,128],lk:[84,140],lf:[52,128],rk:[86,142],rf:[54,130]};
+const SPL={h:[180,106],n:[168,116],m:[143,132],p:[118,146],le:[168,148],lh:[170,180],re:[168,90],rh:[170,62],lk:[83,164],lf:[48,180],rk:[83,162],rf:[46,178]};
+const PIG_A={h:[130,96],n:[126,112],m:[122,138],p:[118,164],le:[134,138],lh:[140,170],re:[130,140],rh:[136,172],lk:[148,172],lf:[124,180],rk:[78,176],rf:[38,178]};
+const PIG_B={...PIG_A,h:[170,164],n:[156,158],m:[136,150],le:[176,170],lh:[200,176],re:[174,171],rh:[198,177]};
+const BF_A={...SEAT_A,le:[104,150],lh:[118,172],re:[136,150],rh:[122,172],lk:[80,164],lf:[124,176],rk:[160,164],rf:[116,176]};
+const BF_B={...BF_A,h:[120,122],n:[120,136],m:[120,154],le:[102,158],re:[138,158]};
+// more pilates
+const SS_A={...LIE_UP,h:[118,104],n:[116,120],m:[113,148],p:[110,174],le:[92,124],lh:[66,124],re:[94,126],rh:[68,126]};
+const SS_B={...SS_A,h:[70,140],n:[82,132],m:[100,148],le:[62,144],lh:[36,150],re:[64,146],rh:[38,152]};
+const SAW_A={...SS_A,le:[90,120],lh:[64,120],re:[142,120],rh:[168,120]};
+const SAW_B={...SS_A,h:[76,140],n:[86,130],m:[100,150],le:[70,150],lh:[44,166],re:[100,112],rh:[120,98]};
+const SWAN={...PRONE,m:[136,164],n:[154,142],h:[164,126],le:[160,170],lh:[180,180],re:[158,171],rh:[178,180]};
+const CLAM_A={...SIDE_A,lk:[90,154],lf:[66,174],rk:[92,158],rf:[66,177]};
+const CLAM_B={...CLAM_A,lk:[98,138]};
+const MER_A={...SEAT_A,re:[136,94],rh:[140,68]};
+const MER_B={...SEAT_A,h:[96,104],n:[106,118],m:[114,142],le:[86,136],lh:[74,160],re:[124,92],rh:[104,70]};
+const DB_A={...TT_A,le:[165,150],lh:[165,124],re:[163,151],rh:[163,125]};
+const DB_B={...DB_A,lk:[78,162],lf:[40,166],le:[188,162],lh:[212,154]};
+
+/* ------------------------------------------------------------------
+   EXERCISES
+------------------------------------------------------------------- */
+const EX={
+ mountain:{lvl:1,name:"Mountain Breath",cat:"yoga",frames:[STAND,UPSAL],dur:8000,cue:"Inhale, sweep the arms overhead. Exhale, float them down.",
+  tips:["Feet hip-width, weight even through heels and toes","Ribs soften down as the arms rise","Shoulders slide away from the ears"],
+  mistakes:["Arching the low back as the arms lift","Locking the knees","Shrugging"],modify:"Lift the arms only to shoulder height.",challenge:"Rise onto the balls of the feet as the arms lift.",q:"mountain pose upward salute"},
+ catcow:{lvl:1,name:"Cat–Cow",cat:"yoga",frames:[COW,CAT],dur:7000,cue:"Inhale, drop the belly and lift the gaze. Exhale, round the spine toward the sky.",
+  tips:["Wrists under shoulders, knees under hips","Move one vertebra at a time","Let the breath set the pace"],
+  mistakes:["Moving only the neck","Collapsing into the shoulders","Rushing"],modify:"Place a folded blanket under the knees.",challenge:"Hover the knees an inch off the mat for the last five rounds.",q:"cat cow yoga how to"},
+ child:{lvl:1,name:"Child's Pose",cat:"yoga",frames:[CHILD_A,CHILD_B],dur:9000,cue:"Sink the hips toward the heels. Breathe into the back of the ribs.",
+  tips:["Knees together or wide — whatever feels kind","Forehead rests on the mat or a block","Arms long or resting by the sides"],
+  mistakes:["Forcing the hips down","Holding the breath"],modify:"Put a cushion between hips and heels.",challenge:"Walk the hands to one side to stretch the side body.",q:"childs pose yoga tutorial"},
+ lunge:{lvl:1,name:"Low Lunge",cat:"yoga",frames:[LUNGE_A,LUNGE_B],dur:8000,cue:"Front knee over ankle. Lift the chest, then reach the arms high.",
+  tips:["Back knee padded and slightly behind the hip","Draw the tailbone down to open the front hip","Keep the front knee tracking over the second toe"],
+  mistakes:["Front knee drifting past the toes","Dumping into the low back"],modify:"Keep the hands on the front thigh or on blocks.",challenge:"Lift the back knee into a high crescent lunge.",q:"low lunge anjaneyasana"},
+ dog:{lvl:1,name:"Downward Dog",cat:"yoga",frames:[PLANK,DOG],dur:8000,cue:"From plank, press the hips up and back into an upside-down V.",
+  tips:["Spread the fingers wide, press through the knuckles","Hips lift first, heels second","Bend the knees to keep the spine long"],
+  mistakes:["Rounded back from tight hamstrings","Shoulders up by the ears","Feet too close to the hands"],modify:"Keep the knees generously bent.",challenge:"Lift one leg high for three-legged dog.",q:"downward dog alignment"},
+ tree:{lvl:1,name:"Tree Pose",cat:"yoga",frames:[TREE_A,TREE_B],dur:9000,cue:"Root down through the standing foot. Grow tall through the crown.",
+  tips:["Foot on the inner calf or thigh — never on the knee","Fix your gaze on one still point","Hips stay level"],
+  mistakes:["Foot pressing on the knee joint","Hip popping out to the side"],modify:"Keep the toes on the floor like a kickstand.",challenge:"Close your eyes for a few breaths.",q:"tree pose vrksasana"},
+ warrior:{lvl:1,name:"Warrior II",cat:"yoga",frames:[WAR_A,WAR_B],dur:8000,cue:"Bend the front knee deep. Reach long through both arms.",
+  tips:["Front heel lines up with the back arch","Front knee stacks over the ankle","Shoulders soft, gaze over the front fingers"],
+  mistakes:["Knee caving inward","Torso leaning toward the front leg"],modify:"Shorten your stance and bend less.",challenge:"Hold the deepest bend for five slow breaths.",q:"warrior 2 pose alignment"},
+ bridge:{lvl:1,name:"Bridge",cat:"pilates",frames:[BR_A,BR_B],dur:7000,cue:"Press through the feet and peel the spine up one vertebra at a time.",
+  tips:["Feet hip-width, heels close to the sit bones","Squeeze the glutes at the top","Roll down slowly through the spine"],
+  mistakes:["Overarching the low back","Knees splaying out"],modify:"Lift only halfway.",challenge:"Hold at the top and march the feet.",q:"pilates bridge articulation"},
+ slbridge:{lvl:2,name:"Single-Leg Bridge",cat:"pilates",frames:[SLBR_A,SLBR_B],dur:5000,cue:"Lift one leg and drive through the standing heel. Keep the hips level.",
+  tips:["Pelvis stays square — no tilting","Push through the heel, not the toes","Exhale on the lift"],
+  mistakes:["One hip dropping","Pushing from the low back"],modify:"Do a two-leg bridge.",challenge:"Pause three seconds at the top of each rep.",q:"single leg glute bridge form"},
+ hundred:{lvl:1,name:"The Hundred",cat:"pilates",frames:[HUN_A,HUN_B],dur:1100,cue:"Curl the head and shoulders up. Pump the arms — in for five, out for five.",
+  tips:["Gaze toward the belly, chin slightly tucked","Low back stays anchored to the mat","Arms pump from the shoulders, small and quick"],
+  mistakes:["Pulling on the neck","Legs too low so the back arches"],modify:"Keep the knees bent in tabletop and the head down.",challenge:"Lower the legs closer to the floor.",q:"pilates hundred exercise"},
+ rollup:{lvl:2,name:"Roll-Up",cat:"pilates",frames:[LIE_UP,SEAT_UP,SEAT_FOLD,SEAT_UP],dur:11000,cue:"Reach the arms up, curl the chin, and roll up one vertebra at a time.",
+  tips:["Move slowly and segmentally","Exhale as you curl forward","Legs stay heavy and long"],
+  mistakes:["Using momentum or a jerk","Feet lifting off the floor"],modify:"Bend the knees and hold the backs of the thighs.",challenge:"Hold a light ball overhead throughout.",q:"pilates roll up tutorial"},
+ sls:{lvl:1,name:"Single-Leg Stretch",cat:"pilates",frames:[SLS_A,SLS_B],dur:2600,cue:"Draw one knee in, extend the other. Switch with control.",
+  tips:["Outside hand to ankle, inside hand to knee","Shoulder blades lifted, core drawn in","Extend the leg long, not high"],
+  mistakes:["Rocking side to side","Neck straining"],modify:"Keep the head down and extend legs higher.",challenge:"Lower the extended leg closer to the floor.",q:"pilates single leg stretch"},
+ circles:{lvl:1,name:"Leg Circles",cat:"pilates",frames:CIRC_F,dur:6000,cue:"Draw small circles with the lifted leg. Keep the pelvis perfectly still.",
+  tips:["Circles stay small and controlled","Press the arms into the mat","Reverse direction halfway"],
+  mistakes:["Rocking the hips","Circles too big"],modify:"Bend the lifted knee slightly.",challenge:"Make the circles larger without moving the pelvis.",q:"pilates leg circles"},
+ swim:{lvl:2,name:"Swimming",cat:"pilates",frames:[SWIM_A,SWIM_B],dur:1400,cue:"Lift arms and legs, then flutter opposite arm and leg quickly.",
+  tips:["Lengthen before you lift","Gaze down to keep the neck long","Belly lifts slightly off the mat"],
+  mistakes:["Cranking the head up","Pinching the low back"],modify:"Lift one arm and the opposite leg slowly.",challenge:"Speed up while keeping the torso still.",q:"pilates swimming exercise"},
+ plank:{lvl:2,name:"Plank Leg Lift",cat:"pilates",frames:[PLANK,PLANK_LIFT],dur:3200,cue:"Hold a long plank. Lift one leg without shifting the hips.",
+  tips:["Hands under shoulders, body in one line","Heels push back, crown reaches forward","Hips stay level as the leg lifts"],
+  mistakes:["Hips sagging or piking","Rotating the pelvis on the lift"],modify:"Hold a plank on the knees.",challenge:"Add a 2-second hold at the top of each lift.",q:"plank leg lift form"},
+ teaser:{lvl:3,name:"Teaser",cat:"pilates",frames:[LIE_UP,TEASE],dur:7000,cue:"Roll up into a V, reaching the arms parallel to the legs.",
+  tips:["Balance just behind the sit bones","Chest lifted, spine long","Roll down with control"],
+  mistakes:["Collapsing the chest","Using momentum to swing up"],modify:"Keep the feet on the floor and knees bent.",challenge:"Keep the legs lifted between reps.",q:"pilates teaser exercise"},
+ sunflow:{lvl:2,name:"Sun Salutation",cat:"yoga",frames:[STAND,UPSAL,FOLD,PLANK,DOG,FOLD,UPSAL],dur:16000,cue:"One breath, one movement: reach, fold, plank, dog, rise.",
+  tips:["Link every movement to an inhale or exhale","Bend the knees in folds as needed","Step or jump — choose ease over speed"],
+  mistakes:["Holding the breath","Sagging hips in plank"],modify:"Lower the knees in plank.",challenge:"Add a chaturanga and upward dog.",q:"sun salutation A step by step"},
+ chair:{name:"Chair Pose",cat:"yoga",lvl:1,frames:[UPSAL,CHAIR],dur:8000,cue:"Sit the hips back as if into a chair. Reach the arms up beside the ears.",
+  tips:["Weight in the heels — you could lift your toes","Knees stay behind the toes","Ribs knit in, spine long"],
+  mistakes:["Knees shooting forward","Arching the low back"],modify:"Hands at heart center and a shallower bend.",challenge:"Hold for five breaths, then lift the heels.",q:"chair pose utkatasana alignment"},
+ crescent:{name:"Crescent Lunge",cat:"yoga",lvl:2,frames:[CRES_A,CRES_B],dur:8000,cue:"Back knee lifted, heel pressing back. Rise tall and reach the arms up.",
+  tips:["Front knee stacks over the ankle","Back leg strong and straight","Square the hips to the front"],
+  mistakes:["Back knee locked or collapsing","Leaning the torso forward"],modify:"Lower the back knee into a low lunge.",challenge:"Sink an inch lower and hold for five breaths.",q:"crescent lunge alignment"},
+ triangle:{name:"Triangle",cat:"yoga",lvl:1,frames:[TRI_A,TRI_B],dur:9000,cue:"Reach long over the front leg, then tip the torso and stack the arms.",
+  tips:["Both legs long, front knee soft not locked","Lower hand on shin, block or floor","Open the chest toward the sky"],
+  mistakes:["Collapsing the side waist","Hyperextending the front knee"],modify:"Rest the lower hand high on the shin or a block.",challenge:"Lift the lower hand off for a breath.",q:"triangle pose trikonasana"},
+ warrior3:{name:"Warrior III",cat:"yoga",lvl:2,frames:[W3_A,W3_B],dur:9000,cue:"Hinge forward on one leg until body and back leg form a long line.",
+  tips:["Standing knee soft","Hips level — point the back toes down","Reach out through the crown and the back heel"],
+  mistakes:["Lifted hip opening to the side","Rounding the upper back"],modify:"Keep the hands on a wall or chair.",challenge:"Hold for five breaths with the arms forward.",q:"warrior 3 pose tutorial"},
+ cobra:{name:"Cobra",cat:"yoga",lvl:1,frames:[PRONE,COBRA],dur:8000,cue:"Press the tops of the feet down and lift the chest on an inhale.",
+  tips:["Elbows hug in toward the ribs","Lift with the back, not the hands","Neck long, gaze slightly forward"],
+  mistakes:["Pushing too high with straight arms","Crunching the neck back"],modify:"Stay low in baby cobra.",challenge:"Hover the hands off the mat.",q:"cobra pose bhujangasana"},
+ standfold:{name:"Standing Forward Fold",cat:"yoga",lvl:1,frames:[UPSAL,FOLD],dur:9000,cue:"Hinge at the hips and let the head hang heavy.",
+  tips:["Bend the knees as much as you need","Fold from the hips, not the waist","Shake the head yes and no to release the neck"],
+  mistakes:["Locking the knees","Forcing the hands to the floor"],modify:"Rest the hands on the shins or blocks.",challenge:"Hold opposite elbows and sway gently.",q:"standing forward fold uttanasana"},
+ seatfold:{name:"Seated Forward Fold",cat:"yoga",lvl:1,frames:[SEAT_UP,SEAT_FOLD],dur:10000,cue:"Sit tall, then fold forward over the legs with a long spine.",
+  tips:["Sit on a folded blanket if the back rounds","Lead with the chest","Relax the shoulders and jaw"],
+  mistakes:["Pulling yourself down with the arms","Rounding to touch the toes"],modify:"Bend the knees and loop a strap around the feet.",challenge:"Stay for ten slow breaths.",q:"seated forward fold paschimottanasana"},
+ kneeschest:{name:"Knees to Chest",cat:"yoga",lvl:1,frames:[BR_A,KC_B],dur:8000,cue:"Draw both knees in and give yourself a gentle hug.",
+  tips:["Low back melts toward the mat","Rock gently side to side","Breathe into the back body"],
+  mistakes:["Lifting the head and straining the neck"],modify:"Hug one knee at a time.",challenge:"Draw small circles with the knees.",q:"apanasana knees to chest"},
+ crisscross:{name:"Criss-Cross",cat:"pilates",lvl:2,frames:[CC_A,CC_B],dur:3000,cue:"Hands behind the head. Twist toward the bent knee as the other leg extends.",
+  tips:["Rotate from the ribs, not the elbows","Elbows stay wide","Pelvis stays still and heavy"],
+  mistakes:["Pulling on the neck","Rushing the twist"],modify:"Keep both feet on the floor and twist the upper body only.",challenge:"Hold each twist for three counts.",q:"pilates criss cross"},
+ dls:{name:"Double-Leg Stretch",cat:"pilates",lvl:2,frames:[DLS_A,DLS_B],dur:5000,cue:"Reach the arms and legs away on an inhale. Circle back and hug in on the exhale.",
+  tips:["Low back stays anchored","Gaze toward the belly","Legs reach only as low as you can control"],
+  mistakes:["Back arching as the legs extend","Head dropping back"],modify:"Extend the legs higher toward the ceiling.",challenge:"Lower the legs closer to the floor.",q:"pilates double leg stretch"},
+ rollball:{name:"Rolling Like a Ball",cat:"pilates",lvl:1,frames:[RB_A,RB_B],dur:3600,cue:"Hug the shins, balance, then roll back to the shoulder blades and return.",
+  tips:["Keep the same tight shape the whole time","Inhale to roll back, exhale to come up","Never roll onto the neck"],
+  mistakes:["Throwing the head back","Opening the shape to gain momentum"],modify:"Rock gently without rolling all the way back.",challenge:"Pause and balance at the top each time.",q:"pilates rolling like a ball"},
+ sideleg:{name:"Side-Lying Leg Lift",cat:"pilates",lvl:1,frames:[SIDE_A,SIDE_B],dur:3600,cue:"Lie on your side, stack the hips, and lift the top leg with control.",
+  tips:["Hips stacked, don't roll back","Lift from the outer hip","Lengthen the leg as you lift"],
+  mistakes:["Rolling the hips backward","Swinging the leg"],modify:"Bend the bottom knee for stability.",challenge:"Add small pulses at the top.",q:"pilates side lying leg lift"},
+ toetap:{name:"Toe Taps",cat:"pilates",lvl:1,frames:[TT_A,TT_B],dur:3400,cue:"Legs in tabletop. Lower one toe to tap the mat, then return.",
+  tips:["Keep the knee angle the same","Exhale as the foot lowers","Back stays quiet on the mat"],
+  mistakes:["Back arching as the leg lowers","Holding the breath"],modify:"Tap with one leg while the other foot rests on the floor.",challenge:"Lower both legs together.",q:"pilates toe taps"},
+ scissors:{name:"Scissors",cat:"pilates",lvl:2,frames:[SC_A,SC_B],dur:3000,cue:"Head and shoulders up. Switch long legs like scissors, pulsing the top leg in.",
+  tips:["Both legs long and active","Shoulder blades lifted","Pelvis stays square"],
+  mistakes:["Bending the knees to reach","Rocking the hips"],modify:"Keep the head down and the bottom leg higher.",challenge:"Speed up while keeping the torso still.",q:"pilates scissors exercise"},
+ birddog:{name:"Bird-Dog",cat:"pilates",lvl:1,frames:[QUAD,BD_B],dur:5000,cue:"On hands and knees, reach one arm forward and the opposite leg back.",
+  tips:["Hips stay level, like a tray on your back","Reach long rather than high","Move slowly and switch sides"],
+  mistakes:["Lifting the leg too high and arching","Shifting weight to one side"],modify:"Lift only the leg, or only the arm.",challenge:"Touch elbow to knee under the body between reps.",q:"bird dog exercise form"},
+ pushup:{name:"Pilates Push-Up",cat:"pilates",lvl:3,frames:[PLANK,PUSHD],dur:4000,cue:"From a long plank, bend the elbows back along the ribs and press up.",
+  tips:["Elbows track back, close to the body","Body moves as one line","Exhale on the push"],
+  mistakes:["Hips sagging","Elbows flaring wide"],modify:"Lower the knees to the mat.",challenge:"Take three counts down, one count up.",q:"pilates push up"},
+ warrior1:{name:"Warrior I",cat:"yoga",lvl:1,frames:[W1_A,W1_B],dur:8000,cue:"Back heel down at an angle, front knee bent. Sweep the arms up and lift the heart.",
+  tips:["Back foot turned out about 45°, heel grounded","Hips point toward the front of the mat","Ribs draw in as the arms rise"],
+  mistakes:["Back heel lifting","Overarching the low back"],modify:"Shorten the stance and keep hands on the hips.",challenge:"Bend deeper and hold for five breaths.",q:"warrior 1 pose alignment"},
+ goddess:{name:"Goddess Pose",cat:"yoga",lvl:1,frames:[GOD_A,GOD_B],dur:7000,cue:"Wide stance, toes out. Sink the hips and open the arms like a cactus.",
+  tips:["Knees track over the toes","Tailbone points down, spine tall","Exhale as you sink"],
+  mistakes:["Knees collapsing inward","Leaning forward"],modify:"Bend less and rest the hands on the thighs.",challenge:"Lift the heels and hold.",q:"goddess pose utkata konasana"},
+ garland:{name:"Garland Squat",cat:"yoga",lvl:1,frames:[CHAIR,GARLAND],dur:9000,cue:"Feet wider than hips, sink into a deep squat with palms together at the heart.",
+  tips:["Elbows gently press the knees open","Lengthen the spine upward","Heels down or on a rolled blanket"],
+  mistakes:["Collapsing the chest","Forcing the heels down"],modify:"Sit on a block under the hips.",challenge:"Reach the arms overhead for a few breaths.",q:"malasana garland pose"},
+ sphinx:{name:"Sphinx",cat:"yoga",lvl:1,frames:[PRONE,SPHINX],dur:9000,cue:"Lying on the belly, rest on the forearms and gently lift the chest.",
+  tips:["Elbows under the shoulders","Press the forearms down to lift the heart","Legs relaxed and long"],
+  mistakes:["Sinking into the shoulders","Squeezing the glutes hard"],modify:"Slide the elbows forward for less bend.",challenge:"Draw the forearms back toward you to lift higher.",q:"sphinx pose yoga"},
+ locust:{name:"Locust",cat:"yoga",lvl:2,frames:[PRONE,LOCUST],dur:7000,cue:"On the belly, lift the chest, arms and legs together on an inhale.",
+  tips:["Gaze down to keep the neck long","Reach back through the fingertips","Lift from the back of the legs"],
+  mistakes:["Cranking the head up","Holding the breath"],modify:"Lift only the chest, or only the legs.",challenge:"Interlace the hands behind the back.",q:"locust pose salabhasana"},
+ twist:{name:"Supine Twist",cat:"yoga",lvl:1,frames:[TW_A,TW_B],dur:10000,cue:"Lying down, let the bent knees fall to one side. Look the other way.",
+  tips:["Both shoulders stay heavy","Breathe into the side ribs","Switch sides halfway"],
+  mistakes:["Forcing the knees to the floor"],modify:"Place a pillow under the knees.",challenge:"Straighten the top leg.",q:"supine spinal twist"},
+ happybaby:{name:"Happy Baby",cat:"yoga",lvl:1,frames:[HB_A,HB_B],dur:6000,cue:"Draw the knees wide toward the armpits and hold the feet or shins.",
+  tips:["Ankles stack over the knees","Low back and head stay on the mat","Rock gently side to side"],
+  mistakes:["Lifting the head","Pulling too hard"],modify:"Hold the backs of the thighs.",challenge:"Straighten one leg at a time.",q:"happy baby pose ananda balasana"},
+ legsup:{name:"Legs Up the Wall",cat:"yoga",lvl:1,frames:[LUW_A,LUW_B],dur:10000,cue:"Lie back with the legs resting up a wall. Let everything soften.",
+  tips:["Sit sideways to the wall, then swing the legs up","A pillow under the hips feels lovely","Arms rest wherever they like"],
+  mistakes:["Gripping the legs to keep them up"],modify:"Rest the calves on a chair instead.",challenge:"Stay for five full minutes.",q:"legs up the wall pose viparita karani"},
+ puppy:{name:"Puppy Pose",cat:"yoga",lvl:1,frames:[QUAD,PUPPY],dur:9000,cue:"From hands and knees, walk the hands forward and melt the chest down.",
+  tips:["Hips stay over the knees","Forehead or chin rests on the mat","Arms active, armpits soften down"],
+  mistakes:["Sitting back into child's pose","Crunching the low back"],modify:"Rest the forehead on a block.",challenge:"Place the elbows on a block and bring the hands together.",q:"puppy pose uttana shishosana"},
+ boat:{name:"Boat Pose",cat:"yoga",lvl:2,frames:[RB_A,BOAT],dur:7000,cue:"Balance behind the sit bones. Lift the shins and reach the arms forward.",
+  tips:["Chest lifted, spine long","Shins parallel to the floor","Breathe steadily"],
+  mistakes:["Rounding the back","Holding the breath"],modify:"Hold the backs of the thighs.",challenge:"Straighten the legs into full boat.",q:"boat pose navasana"},
+ sideplank:{name:"Side Plank",cat:"yoga",lvl:2,frames:[PLANK,SPL],dur:7000,cue:"From plank, roll onto one hand and the side of the foot. Reach the top arm high.",
+  tips:["Bottom hand slightly in front of the shoulder","Hips lift — no sagging","Stack or stagger the feet"],
+  mistakes:["Hips dropping","Shoulder collapsing"],modify:"Lower the bottom knee to the mat.",challenge:"Lift the top leg.",q:"side plank vasisthasana"},
+ pigeon:{name:"Pigeon",cat:"yoga",lvl:2,frames:[PIG_A,PIG_B],dur:10000,cue:"Front shin across the mat, back leg long. Rise tall, then fold forward.",
+  tips:["Flex the front foot to protect the knee","Square the hips as best you can","Support the front hip with a cushion"],
+  mistakes:["Front hip floating high and unsupported","Knee pain — back off right away"],modify:"Try figure-four on your back instead.",challenge:"Bring the front shin more parallel to the mat's front edge.",q:"pigeon pose tutorial"},
+ butterfly:{name:"Butterfly",cat:"yoga",lvl:1,frames:[BF_A,BF_B],dur:9000,cue:"Soles of the feet together, knees falling open. Fold gently forward.",
+  tips:["Sit on a blanket to tilt the pelvis forward","Hold the ankles or feet","Lead with the chest"],
+  mistakes:["Pressing the knees down with the hands"],modify:"Slide the feet further away.",challenge:"Fold lower and rest the forehead toward the feet.",q:"butterfly pose baddha konasana"},
+ spinestretch:{name:"Spine Stretch Forward",cat:"pilates",lvl:1,frames:[SS_A,SS_B],dur:8000,cue:"Sit tall, legs apart. Exhale and peel the spine forward like a C-curve.",
+  tips:["Lift up before you round forward","Arms reach parallel to the floor","Restack one vertebra at a time"],
+  mistakes:["Collapsing at the hips","Reaching with the shoulders"],modify:"Bend the knees or sit on a cushion.",challenge:"Hold the deepest curve for three breaths.",q:"pilates spine stretch forward"},
+ saw:{name:"The Saw",cat:"pilates",lvl:2,frames:[SAW_A,SAW_B],dur:7000,cue:"Arms wide, twist, then reach the pinky past the opposite little toe.",
+  tips:["Hips stay grounded","Twist first, then dive","Back arm reaches long behind"],
+  mistakes:["Lifting a hip","Rounding before twisting"],modify:"Bend the knees slightly.",challenge:"Add three small pulses at the reach.",q:"pilates saw exercise"},
+ swan:{name:"Swan Prep",cat:"pilates",lvl:2,frames:[PRONE,SWAN],dur:7000,cue:"On the belly, press the hands down and lift the chest in one long line.",
+  tips:["Lengthen out before you lift","Legs stay long and slightly apart","Shoulders slide down the back"],
+  mistakes:["Pinching the low back","Throwing the head back"],modify:"Lift only a few inches.",challenge:"Hover the hands at the top.",q:"pilates swan prep"},
+ clam:{name:"Clamshell",cat:"pilates",lvl:1,frames:[CLAM_A,CLAM_B],dur:4000,cue:"Lie on your side with knees bent. Open the top knee, feet staying together.",
+  tips:["Hips stacked and still","Lift from the outer hip","Move slowly both ways"],
+  mistakes:["Rolling the top hip back","Rushing the reps"],modify:"Make the opening smaller.",challenge:"Hover the feet off the mat.",q:"pilates clamshell"},
+ mermaid:{name:"Mermaid",cat:"pilates",lvl:1,frames:[MER_A,MER_B],dur:9000,cue:"Seated, sweep one arm overhead and side-bend to open the waist.",
+  tips:["Both sit bones stay heavy","Reach up before you reach over","Breathe into the stretched side"],
+  mistakes:["Leaning forward","Collapsing the bottom side"],modify:"Sit on a cushion.",challenge:"Add a gentle twist toward the floor.",q:"pilates mermaid stretch"},
+ deadbug:{name:"Dead Bug",cat:"pilates",lvl:1,frames:[DB_A,DB_B],dur:5000,cue:"Arms up, legs in tabletop. Lower opposite arm and leg, then switch.",
+  tips:["Low back stays heavy on the mat","Exhale as you reach away","Move slowly"],
+  mistakes:["Back arching","Moving too fast"],modify:"Move only the legs.",challenge:"Hold a light weight in the hands.",q:"dead bug exercise form"},
+ seated:{name:"Seated Breath",cat:"meditation",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"Sit tall and soft. Follow the breath.",
+  tips:["Sit on a cushion so the knees fall below the hips","Hands rest on the thighs","Eyes closed or gaze soft and low"],mistakes:["Forcing the breath","Judging a wandering mind"],
+  script:[[0,"Settle in. Let your spine rise tall and your shoulders soften."],[30,"Follow the breath at the tip of the nose — cool in, warm out."],[75,"When thoughts arrive, name them gently — “thinking” — and come back."],[130,"Let each exhale be a little longer than the inhale."],[190,"Notice the small pause between breaths. Rest there."],[250,"Bring to mind one thing you're grateful for right now."],[285,"Slowly widen your attention to the room. Open your eyes when ready."]],q:"guided seated meditation posture"},
+ scan:{name:"Body Scan",cat:"meditation",kind:"medit",frames:[SAV_A,SAV_B],dur:10000,pattern:[4,0,6,0],cue:"Lie still. Move your attention slowly through the body.",
+  tips:["Support the knees with a pillow if the low back aches","Let the feet fall open","Nothing to fix — only notice"],mistakes:["Trying to relax by force"],
+  script:[[0,"Lie down and let the floor hold you completely."],[30,"Bring attention to your feet. Notice warmth, weight, tingling."],[75,"Move up through the calves, knees and thighs. Let them grow heavy."],[125,"Notice the hips and low back. Breathe into any tightness."],[175,"Feel the belly rise and fall on its own."],[220,"Rest attention on the chest and heart. Notice the beat."],[265,"Soften the hands, arms and shoulders."],[310,"Relax the jaw, the eyes, the space between the brows."],[355,"Now feel the whole body at once, breathing."],[400,"Wiggle fingers and toes. Roll to one side when ready."]],q:"body scan meditation guided"},
+ gratitude:{name:"Three Good Things",cat:"mindfulness",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"A quiet reflection on what went well.",tips:["Small things count","Feel it, don't just list it"],mistakes:["Skipping to the next thing too fast"],
+  script:[[0,"Close your eyes. Take three slow breaths."],[20,"Recall one good thing from today, however small."],[45,"What made it happen? Let yourself feel it again."],[65,"Recall a second good thing. Stay with it."],[85,"And a third. Notice where you feel it in your body."],[105,"Rest in that feeling for a few more breaths."]],q:"three good things gratitude practice"},
+ box:{name:"Box Breathing",cat:"breath",kind:"breath",pattern:[4,4,4,4],cue:"In for four, hold for four, out for four, hold for four.",tips:["Breathe through the nose","Keep the holds relaxed, not tense","Shorten to three counts if four feels like strain"],mistakes:["Gripping the throat on the holds"],
+  script:[[0,"Sit or stand comfortably. Follow the circle."],[60,"Let the shoulders drop a little more each round."],[120,"Notice your heartbeat slowing."]],q:"box breathing technique"},
+ pause:{name:"One-Minute Pause",cat:"mindfulness",kind:"breath",pattern:[4,0,6,0],cue:"Just one minute. Breathe with the circle.",tips:["Anywhere works — desk, car, kitchen"],mistakes:[],
+  script:[[0,"Drop your shoulders."],[15,"Unclench your jaw."],[30,"Feel your feet on the ground."],[45,"Name one thing you can hear."]],q:"one minute mindful breathing"},
+ /* ---- breathwork ---- */
+ sigh:{name:"Physiological Sigh",cat:"breath",kind:"breath",pattern:[3,0,6,0],labels:["Inhale · top it up","","Long sigh out",""],cue:"Two inhales through the nose, then one long, slow exhale through the mouth.",
+  tips:["After the first inhale, sip in a little more air","Let the exhale be slow and audible","Even one to three sighs can take the edge off"],mistakes:["Gulping big breaths","Rushing the exhale"],
+  script:[[0,"Breathe in through the nose… then sip in a little more."],[20,"Let it all go in a long, slow sigh through the mouth."],[45,"Feel the shoulders drop on every exhale."],[70,"Notice what feels a little softer now."]],q:"physiological sigh breathing"},
+ relax478:{name:"4-7-8 Breath",cat:"breath",kind:"breath",pattern:[4,7,8,0],cue:"In for four, hold for seven, out for eight.",
+  tips:["Tongue rests just behind the upper front teeth","Exhale through the mouth with a soft whoosh","Four rounds is plenty when you're starting"],mistakes:["Straining on the hold","Continuing if you feel lightheaded"],
+  script:[[0,"Rest the tip of your tongue just behind your upper front teeth."],[19,"Quietly in through the nose… hold… and whoosh out through the mouth."],[57,"Let the long exhale tell your body it's safe."],[95,"If you feel lightheaded, simply return to easy breathing."]],q:"4 7 8 breathing technique"},
+ coherent:{name:"Coherent Breathing",cat:"breath",kind:"breath",pattern:[5.5,0,5.5,0],cue:"An even, slow rhythm — about five breaths a minute.",
+  tips:["Breathe low into the belly","Smooth and quiet, like a wave","No holds — one breath flows into the next"],mistakes:["Breathing so deeply you feel dizzy"],
+  script:[[0,"Let the breath slow to the pace of the circle."],[45,"In like a wave arriving… out like a wave returning."],[110,"Let the belly be soft."],[180,"Feel your heartbeat begin to settle with the rhythm."],[250,"Keep going. Nothing to fix — only follow."]],q:"coherent breathing 5.5 breaths per minute"},
+ belly:{name:"Belly Breathing",cat:"breath",kind:"breath",pattern:[4,1,6,1],labels:["Belly rises","Pause","Belly falls","Rest"],cue:"One hand on the chest, one on the belly. Let the lower hand do the moving.",
+  tips:["The chest hand stays fairly still","Breathe in through the nose","Exhale a little longer than you inhale"],mistakes:["Pushing the belly out with force"],
+  script:[[0,"Place one hand on your chest and one on your belly."],[30,"Breathe so that only the belly hand rises."],[75,"With each exhale, let the body grow heavier."],[120,"If anxious thoughts arrive, feel your hand rise and fall instead."],[160,"Stay with the next few breaths."]],q:"diaphragmatic belly breathing for anxiety"},
+ nadi:{name:"Alternate Nostril Breath",cat:"breath",kind:"breath",pattern:[4,2,6,0],labels:[["In · left nostril","Close both","Out · right nostril",""],["In · right nostril","Close both","Out · left nostril",""]],cue:"Use the right thumb and ring finger to switch nostrils with each breath.",
+  tips:["Thumb closes the right nostril, ring finger the left","Rest the index and middle fingers between the brows","Keep the touch light"],mistakes:["Pressing hard on the nose","Hurrying the switch"],
+  script:[[0,"Sit tall. Bring your right hand up to your face."],[24,"Close the right nostril and breathe in through the left."],[60,"Switch sides at the top of each breath."],[120,"Notice the mind becoming balanced and clear."],[200,"On your last breath, exhale and rest the hand in your lap."]],q:"alternate nostril breathing nadi shodhana"},
+ bee:{name:"Humming Bee Breath",cat:"breath",kind:"breath",pattern:[4,0,8,0],labels:["Breathe in","","Hum out · mmm",""],cue:"Breathe in, then hum softly like a bee as you breathe out.",
+  tips:["Lips closed, teeth slightly apart","Gently cover the ears with the thumbs if you like","Feel the buzz in the face and chest"],mistakes:["Humming so hard you strain"],
+  script:[[0,"Close your eyes. Breathe in through the nose."],[12,"Hum softly on the exhale — feel the vibration."],[48,"Let the sound fill your head and quiet the thoughts."],[96,"Notice the stillness after each hum."]],q:"bhramari humming bee breath"},
+ bright:{name:"Sunrise Breath",cat:"breath",kind:"breath",pattern:[4,2,4,0],labels:["Breathe in · lift","Fill up","Breathe out · release",""],cue:"A gently energizing breath for heavy, low days.",
+  tips:["Sit or stand tall","Lift the arms with the inhale if you like","Turn toward light if you can"],mistakes:["Breathing too fast"],
+  script:[[0,"Sit or stand tall. Turn toward light if you can."],[20,"Breathe in and feel the chest lift and open."],[50,"On each inhale, imagine the sky brightening."],[80,"On each exhale, let a little heaviness go."],[105,"One more full breath. Notice one thing that's okay right now."]],q:"energizing breathing exercise"},
+ /* ---- meditation & mindfulness for stress, anxiety and low mood ---- */
+ grounding:{name:"5-4-3-2-1 Grounding",cat:"mindfulness",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"Use your senses to come back to the here and now.",
+  tips:["Say each thing silently or out loud","Go slowly — there's no wrong answer","Works anywhere, eyes open"],mistakes:["Rushing through the list"],
+  script:[[0,"Pause. Feel your feet on the floor and take one slow breath."],[15,"Look around. Name five things you can see."],[50,"Now notice four things you can feel — clothing, air, the seat beneath you."],[85,"Listen for three things you can hear."],[115,"Find two things you can smell, or two scents you love."],[140,"Notice one thing you can taste."],[160,"You are here. You are safe in this moment. Breathe."]],q:"5 4 3 2 1 grounding technique"},
+ rain:{name:"RAIN for Hard Feelings",cat:"meditation",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"Recognize, Allow, Investigate, Nurture.",
+  tips:["Go at your own pace","You can stop at any step","Kindness matters more than technique"],mistakes:["Trying to make the feeling go away"],
+  script:[[0,"Sit comfortably and take a few slow breaths."],[30,"Recognize: what is here right now? Name it softly — worry, sadness, tension."],[90,"Allow: let it be here. You don't have to like it or fix it."],[150,"Investigate with kindness: where do you feel it in your body?"],[210,"Nurture: place a hand on your heart. What do you most need to hear?"],[270,"Offer yourself those words. “This is hard. I'm here with you.”"],[320,"Rest in the space after the rain. Notice what has shifted."]],q:"RAIN meditation guided"},
+ leaves:{name:"Leaves on a Stream",cat:"meditation",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"Watch your thoughts drift by without chasing them.",
+  tips:["Any thought goes on a leaf — even “this isn't working”","No need to speed up the stream","Getting hooked is normal; just come back"],mistakes:["Pushing thoughts away"],
+  script:[[0,"Close your eyes and settle your breath."],[25,"Imagine sitting beside a gentle stream. Leaves float past on the water."],[60,"When a thought appears, place it on a leaf and watch it drift away."],[110,"Worries, plans, memories — each one gets its own leaf."],[160,"If you get swept up in a thought, that's okay. Step back onto the bank."],[215,"Notice: you are not your thoughts. You are the one watching them."],[265,"Let the stream carry the last leaf away. Open your eyes slowly."]],q:"leaves on a stream meditation"},
+ kind:{name:"Loving-Kindness",cat:"meditation",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"Offer warmth to yourself and to others.",
+  tips:["The words matter less than the intention","It's okay if you feel nothing at first","Hand on heart can help"],mistakes:["Judging yourself for not feeling warm enough"],
+  script:[[0,"Sit comfortably. Bring a hand to your heart if you like."],[30,"Picture someone who makes you smile. Wish them well: may you be happy, may you be safe."],[95,"Now turn those wishes toward yourself: may I be happy, may I be safe, may I be at ease."],[160,"If it feels hard to receive, that's okay. Just keep offering."],[210,"Bring to mind someone neutral — a neighbor, a stranger. May you be well."],[270,"Widen it to everyone: may all beings be happy and free from suffering."],[330,"Rest in the warmth you've created."]],q:"loving kindness meditation"},
+ selfcomp:{name:"Self-Compassion Break",cat:"mindfulness",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"Three steps for the moments you're hard on yourself.",
+  tips:["Use words that feel natural to you","A hand on the heart or cheek helps","Short and sincere is enough"],mistakes:["Turning it into another task to get right"],
+  script:[[0,"Think of something that's weighing on you right now."],[25,"Say to yourself: this is a moment of struggle. This is hard."],[60,"Remember: struggle is part of being human. You are not alone in this."],[100,"Place your hands on your heart. Say: may I be kind to myself."],[140,"What would you say to a dear friend feeling this way? Say it to yourself."],[165,"Breathe in kindness. Breathe out judgment."]],q:"self compassion break"},
+ pmr:{name:"Progressive Relaxation",cat:"meditation",kind:"medit",frames:[SAV_A,SAV_B],dur:10000,pattern:[4,0,6,0],cue:"Tense and release each muscle group to let stress melt away.",
+  tips:["Tense to about half effort, never to pain","Hold for five, release for ten","Notice the contrast"],mistakes:["Clenching hard enough to cramp"],
+  script:[[0,"Lie down or sit comfortably. Take three slow breaths."],[30,"Curl your toes tightly… hold for five… and release."],[70,"Tense your calves and thighs… hold… and let them go heavy."],[115,"Squeeze your glutes and belly… hold… release."],[160,"Make fists and tense your arms… hold… let go."],[205,"Lift your shoulders up to your ears… hold… drop them."],[250,"Scrunch your face — eyes, jaw, forehead… hold… release."],[295,"Notice the difference between tension and relaxation."],[350,"Scan for any leftover tightness and breathe into it."],[420,"Rest here, heavy and soft. Take your time coming back."]],q:"progressive muscle relaxation guided"},
+ letgo:{name:"Setting It Down",cat:"meditation",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"A visualization for releasing what you've been carrying.",
+  tips:["Choose one thing at a time","You can always pick it back up later","Let the exhale do the letting go"],mistakes:["Forcing yourself to feel lighter"],
+  script:[[0,"Close your eyes. Breathe in slowly, breathe out longer."],[25,"Imagine holding a smooth stone in your hands."],[55,"Let it hold something you're ready to put down — a worry, a regret, a pressure."],[110,"Feel its weight. Notice how long you've been carrying it."],[160,"Now kneel beside a river and gently set the stone in the water."],[200,"Watch it sink and settle. The water keeps flowing."],[240,"Notice your hands — empty, light, open."],[275,"You can always pick it up later. For now, rest."]],q:"letting go meditation guided"},
+ weather:{name:"Weather of the Mind",cat:"meditation",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"Feelings move like weather. You are the sky.",
+  tips:["Describe, don't judge","Every kind of weather is allowed","Return to the breath when it's stormy"],mistakes:["Believing the weather is permanent"],
+  script:[[0,"Settle in and let your breath find its own rhythm."],[30,"Notice your mood right now as if it were weather. Cloudy? Stormy? Foggy?"],[85,"Without judging it, just describe it. “There's heaviness here.”"],[140,"Remember: weather always changes. No storm lasts forever."],[195,"Now sense the sky behind the weather — vast, steady, untouched."],[250,"You are the sky. Let the clouds pass through."]],q:"mindfulness emotions as weather meditation"},
+ butterfly:{name:"Butterfly Hug",cat:"mindfulness",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"Cross your arms and tap gently, left then right.",
+  tips:["Cross the arms over the chest, hands on the upper arms","Tap slowly, alternating sides","Breathe slowly as you tap"],mistakes:["Tapping too fast"],
+  script:[[0,"Cross your arms over your chest, fingertips resting below the collarbones."],[15,"Tap gently — left, right, left, right — like a slow heartbeat."],[45,"Breathe slowly. Notice your body in the seat."],[75,"Whatever you're feeling, let it be held."],[100,"Slow the taps down, then rest your hands."]],q:"butterfly hug technique anxiety"},
+ wave:{name:"Riding the Wave",cat:"mindfulness",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,7,0],cue:"For panic or overwhelm: let the wave rise, crest and pass.",
+  tips:["Feelings peak and fall — usually within minutes","Long exhales calm the body","Keep your eyes open if that feels safer"],mistakes:["Fighting the sensations"],
+  script:[[0,"Anxiety is a wave. It rises, peaks, and falls. You can ride it."],[20,"Notice where you feel it — chest, belly, throat. Just name it."],[50,"Breathe slowly with the circle. Longer out than in."],[85,"Don't fight the feeling. Let it crest. You're still here."],[120,"Notice it beginning to soften, even slightly."],[155,"The wave is passing. Feel your feet. You made it through."]],q:"riding the wave anxiety urge surfing"},
+ smallstep:{name:"One Small Step",cat:"mindfulness",kind:"medit",frames:[SEAT_A,SEAT_B],dur:10000,pattern:[4,0,6,0],cue:"When everything feels heavy, choose one tiny, doable thing.",
+  tips:["Action often comes before motivation","Smaller is better","Celebrate doing it, however small"],mistakes:["Picking something too big"],
+  script:[[0,"Take a breath. You don't need to feel motivated to begin."],[20,"Think of one small thing that could help, even a little — water, fresh air, a short walk."],[55,"Make it smaller still. Something you could do in two minutes."],[85,"Picture yourself doing it. Notice how you feel afterward."],[115,"When this ends, do just that one thing. That's enough for now."]],q:"behavioral activation small steps depression"},
+ safeplace:{name:"A Safe Place",cat:"meditation",kind:"medit",frames:[SAV_A,SAV_B],dur:10000,pattern:[4,0,6,0],cue:"Visualize a place where you feel completely at ease.",
+  tips:["It can be real or imagined","Use every sense","Return here whenever you need"],mistakes:["Worrying about getting the details right"],
+  script:[[0,"Close your eyes and let your breath slow."],[25,"Imagine a place where you feel safe — real or imagined."],[60,"What do you see? Notice the colors, the light, the shapes."],[100,"What can you hear? Waves, birdsong, quiet?"],[140,"Feel the temperature, the ground beneath you."],[180,"Let your body soak in the safety of this place."],[230,"Know you can return here anytime, just by closing your eyes."],[270,"Gently bring your awareness back to the room."]],q:"safe place visualization guided"}
+};
+
+/* ------------------------------------------------------------------
+   SESSIONS
+------------------------------------------------------------------- */
+const ALL=["beginner","intermediate","athlete"];
+const SESSIONS=[
+ {id:"arrive",title:"Morning Arrival",cat:"yoga",levels:["beginner","intermediate"],blurb:"Gentle yoga to wake the spine and settle the breath.",thumb:"catcow",
+  steps:[["mountain",60],["catcow",60],["child",60],["lunge",45],["dog",45],["tree",45],["scan",60]]},
+ {id:"sun",title:"Sun Salutation Flow",cat:"yoga",levels:["intermediate","athlete"],blurb:"Breath-linked flow to build heat and focus.",thumb:"sunflow",
+  steps:[["mountain",45],["sunflow",180],["warrior",60],["lunge",45],["dog",60],["child",60]]},
+ {id:"recover",title:"Athlete Recovery",cat:"yoga",levels:["athlete","intermediate"],blurb:"Open hips, hamstrings and shoulders after training.",thumb:"warrior",
+  steps:[["dog",60],["lunge",60],["warrior",60],["bridge",60],["child",90],["scan",90]]},
+ {id:"core1",title:"Pilates Foundations",cat:"pilates",levels:["beginner","intermediate"],blurb:"Learn to find and control your deep core.",thumb:"bridge",
+  steps:[["bridge",60],["hundred",60],["sls",45],["circles",60],["swim",30],["child",45]]},
+ {id:"core2",title:"Power Core",cat:"pilates",levels:["athlete","intermediate"],blurb:"Strength, stability and control for performance.",thumb:"teaser",
+  steps:[["plank",45],["hundred",100],["rollup",60],["teaser",45],["swim",45],["slbridge",60],["child",45]]},
+ {id:"strong",title:"Strong & Steady",cat:"yoga",levels:["intermediate","athlete"],blurb:"Standing strength and balance for steady legs and focus.",thumb:"warrior3",
+  steps:[["mountain",45],["chair",45],["crescent",60],["warrior",60],["triangle",60],["warrior3",45],["tree",45],["child",60]]},
+ {id:"unwind",title:"Gentle Unwind",cat:"yoga",levels:ALL,blurb:"Slow floor stretches to let the day go.",thumb:"seatfold",
+  steps:[["catcow",60],["cobra",45],["child",60],["seatfold",75],["kneeschest",60],["scan",90]]},
+ {id:"mat",title:"Mat Basics",cat:"pilates",levels:["beginner","intermediate"],blurb:"Simple, safe moves to wake up the core and hips.",thumb:"birddog",
+  steps:[["toetap",60],["bridge",60],["birddog",60],["sideleg",60],["rollball",45],["child",45]]},
+ {id:"classic",title:"Classic Core Series",cat:"pilates",levels:["intermediate","athlete"],blurb:"The five-exercise abdominal series, done with control.",thumb:"dls",
+  steps:[["hundred",100],["sls",45],["dls",45],["scissors",45],["crisscross",60],["rollball",45],["child",45]]},
+ /* more yoga */
+ {id:"hips",title:"Hip Release",cat:"yoga",levels:ALL,blurb:"Open tight hips — where many of us store stress.",thumb:"pigeon",for:["stress"],
+  steps:[["catcow",60],["lunge",60],["goddess",45],["garland",45],["pigeon",90],["butterfly",75],["happybaby",60]]},
+ {id:"backbend",title:"Heart Opener",cat:"yoga",levels:["beginner","intermediate"],blurb:"Gentle backbends to lift the chest and the mood.",thumb:"sphinx",for:["lowmood"],
+  steps:[["catcow",45],["sphinx",60],["cobra",45],["locust",45],["bridge",60],["child",60],["kneeschest",45]]},
+ {id:"bedtime",title:"Bedtime Wind-Down",cat:"yoga",levels:ALL,blurb:"Soft, slow shapes to quiet the body before sleep.",thumb:"legsup",for:["sleep","stress","anxiety"],
+  steps:[["puppy",60],["child",75],["butterfly",75],["twist",90],["happybaby",60],["legsup",120],["scan",120]]},
+ {id:"warriorflow",title:"Warrior Flow",cat:"yoga",levels:["intermediate","athlete"],blurb:"Powerful standing poses for confidence and focus.",thumb:"warrior1",for:["lowmood","focus"],
+  steps:[["mountain",45],["warrior1",60],["warrior",60],["goddess",45],["triangle",60],["crescent",60],["sideplank",30],["child",60]]},
+ {id:"coreyoga",title:"Yoga for Core",cat:"yoga",levels:["intermediate","athlete"],blurb:"Balance and core strength, yoga style.",thumb:"boat",
+  steps:[["dog",45],["boat",45],["sideplank",30],["plank",45],["locust",45],["boat",45],["child",60]]},
+ {id:"desk",title:"Desk Reset",cat:"yoga",levels:ALL,blurb:"Undo hours of sitting in about five minutes.",thumb:"puppy",for:["stress","focus"],
+  steps:[["mountain",45],["standfold",45],["catcow",45],["puppy",45],["twist",60],["sigh",60]]},
+ {id:"moodlift",title:"Mood Lift Flow",cat:"yoga",levels:ALL,blurb:"Uplifting movement and breath for heavy days.",thumb:"goddess",for:["lowmood"],
+  steps:[["mountain",45],["chair",30],["warrior1",45],["goddess",45],["cobra",45],["bridge",45],["bright",60]]},
+ {id:"groundflow",title:"Grounding Flow",cat:"yoga",levels:ALL,blurb:"Steady, rooted poses to settle an anxious mind.",thumb:"tree",for:["anxiety"],
+  steps:[["mountain",60],["tree",45],["standfold",60],["child",75],["legsup",90],["belly",90]]},
+ /* more pilates */
+ {id:"posture",title:"Posture & Spine",cat:"pilates",levels:["beginner","intermediate"],blurb:"Lengthen, twist and extend the spine.",thumb:"saw",for:["focus"],
+  steps:[["spinestretch",60],["saw",60],["swan",45],["mermaid",60],["catcow",45],["child",45]]},
+ {id:"glutes",title:"Glutes & Hips",cat:"pilates",levels:ALL,blurb:"Strong, stable hips from the side and back.",thumb:"clam",
+  steps:[["clam",60],["sideleg",60],["bridge",60],["slbridge",45],["birddog",60],["kneeschest",45]]},
+ {id:"gentlepil",title:"Gentle Pilates",cat:"pilates",levels:["beginner","intermediate"],blurb:"Slow, safe core work that's kind to the back.",thumb:"deadbug",for:["stress"],
+  steps:[["deadbug",60],["toetap",60],["bridge",60],["clam",60],["mermaid",60],["kneeschest",45]]},
+ {id:"fullmat",title:"Full Mat Flow",cat:"pilates",levels:["athlete"],blurb:"A challenging classical-style mat sequence.",thumb:"swan",
+  steps:[["hundred",100],["rollup",60],["circles",45],["rollball",45],["sls",45],["dls",45],["spinestretch",45],["saw",45],["swan",45],["swim",30],["teaser",45],["pushup",45],["child",45]]},
+ {id:"pilstretch",title:"Stretch & Breathe",cat:"pilates",levels:ALL,blurb:"Release tension, then slow the breath right down.",thumb:"mermaid",for:["stress","sleep"],
+  steps:[["mermaid",60],["spinestretch",60],["saw",60],["deadbug",45],["kneeschest",60],["coherent",90]]},
+ /* meditation */
+ {id:"calm",title:"Calm Mind",cat:"meditation",levels:ALL,blurb:"Five quiet minutes with the breath.",thumb:"seated",for:["stress","anxiety","focus"],steps:[["seated",300]],fixed:true},
+ {id:"bodyscan",title:"Body Scan",cat:"meditation",levels:ALL,blurb:"Release tension from head to toe.",thumb:"scan",for:["stress","sleep"],steps:[["scan",420]],fixed:true},
+ {id:"rain",title:"RAIN for Hard Feelings",cat:"meditation",levels:ALL,blurb:"Meet difficult emotions with kindness instead of fighting them.",thumb:"rain",for:["anxiety","lowmood","stress"],steps:[["rain",360]],fixed:true},
+ {id:"leaves",title:"Leaves on a Stream",cat:"meditation",levels:ALL,blurb:"Let racing thoughts float by without chasing them.",thumb:"leaves",for:["anxiety","stress"],steps:[["leaves",300]],fixed:true},
+ {id:"letgo",title:"Setting It Down",cat:"meditation",levels:ALL,blurb:"A visualization for releasing what you've been carrying.",thumb:"letgo",for:["stress","anxiety"],steps:[["letgo",300]],fixed:true},
+ {id:"weather",title:"Weather of the Mind",cat:"meditation",levels:ALL,blurb:"Feelings pass like weather. You are the sky.",thumb:"weather",for:["lowmood","anxiety"],steps:[["weather",300]],fixed:true},
+ {id:"kind",title:"Loving-Kindness",cat:"meditation",levels:ALL,blurb:"Warmth for yourself and others — a gentle lift for low days.",thumb:"kind",for:["lowmood"],steps:[["kind",360]],fixed:true},
+ {id:"pmr",title:"Progressive Relaxation",cat:"meditation",levels:ALL,blurb:"Tense and release each muscle group to melt stress away.",thumb:"pmr",for:["stress","sleep","anxiety"],steps:[["pmr",480]],fixed:true},
+ {id:"safeplace",title:"A Safe Place",cat:"meditation",levels:ALL,blurb:"Visualize somewhere you feel completely at ease.",thumb:"safeplace",for:["anxiety","sleep"],steps:[["safeplace",300]],fixed:true},
+ /* breathwork */
+ {id:"sigh",title:"Physiological Sigh",cat:"breath",levels:ALL,blurb:"Two inhales, one long exhale — the quickest way to calm down.",thumb:"sigh",for:["stress","anxiety"],steps:[["sigh",90]],fixed:true},
+ {id:"box",title:"Box Breathing Reset",cat:"breath",levels:ALL,blurb:"Steady your nervous system in three minutes.",thumb:"box",for:["stress","anxiety","focus"],steps:[["box",180]],fixed:true},
+ {id:"relax478",title:"4-7-8 Relaxing Breath",cat:"breath",levels:ALL,blurb:"A long exhale to quiet anxiety and invite sleep.",thumb:"relax478",for:["anxiety","sleep"],steps:[["relax478",120]],fixed:true},
+ {id:"belly",title:"Belly Breathing",cat:"breath",levels:ALL,blurb:"Slow, low breaths that tell your body it's safe.",thumb:"belly",for:["anxiety","stress"],steps:[["belly",180]],fixed:true},
+ {id:"coherent",title:"Coherent Breathing",cat:"breath",levels:ALL,blurb:"Five slow breaths a minute to balance your nervous system.",thumb:"coherent",for:["stress","focus"],steps:[["coherent",300]],fixed:true},
+ {id:"nadi",title:"Alternate Nostril Breath",cat:"breath",levels:ALL,blurb:"A balancing yogic breath for a clear, calm mind.",thumb:"nadi",for:["focus","stress","anxiety"],steps:[["nadi",240]],fixed:true},
+ {id:"bee",title:"Humming Bee Breath",cat:"breath",levels:ALL,blurb:"Hum on the exhale to soothe a busy head.",thumb:"bee",for:["stress","sleep","anxiety"],steps:[["bee",120]],fixed:true},
+ {id:"bright",title:"Sunrise Breath",cat:"breath",levels:ALL,blurb:"A gently energizing breath for heavy, low days.",thumb:"bright",for:["lowmood"],steps:[["bright",120]],fixed:true},
+ /* mindfulness */
+ {id:"grounding",title:"5-4-3-2-1 Grounding",cat:"mindfulness",levels:ALL,blurb:"Use your five senses to come back to now.",thumb:"grounding",for:["anxiety"],steps:[["grounding",180]],fixed:true},
+ {id:"wave",title:"Riding the Wave",cat:"mindfulness",levels:ALL,blurb:"For panic or overwhelm: let the feeling rise and pass.",thumb:"wave",for:["anxiety"],steps:[["wave",180]],fixed:true},
+ {id:"butterfly",title:"Butterfly Hug",cat:"mindfulness",levels:ALL,blurb:"Gentle self-tapping to soothe anxious feelings.",thumb:"butterfly",for:["anxiety"],steps:[["butterfly",120]],fixed:true},
+ {id:"selfcomp",title:"Self-Compassion Break",cat:"mindfulness",levels:ALL,blurb:"For moments you're being hard on yourself.",thumb:"selfcomp",for:["lowmood","stress"],steps:[["selfcomp",180]],fixed:true},
+ {id:"smallstep",title:"One Small Step",cat:"mindfulness",levels:ALL,blurb:"When everything feels heavy, choose one tiny thing.",thumb:"smallstep",for:["lowmood"],steps:[["smallstep",150]],fixed:true},
+ {id:"gratitude",title:"Three Good Things",cat:"mindfulness",levels:ALL,blurb:"Two minutes to notice what went right.",thumb:"gratitude",for:["lowmood"],steps:[["gratitude",120]],fixed:true},
+ {id:"pause",title:"One-Minute Pause",cat:"mindfulness",levels:ALL,blurb:"A breath between meetings, reps or errands.",thumb:"pause",for:["stress"],steps:[["pause",60]],fixed:true}
+];
+const NEEDS={all:"Any",stress:"Stress",anxiety:"Anxiety",lowmood:"Low mood",sleep:"Sleep",focus:"Focus"};
+const RELIEF=[["Stressed","sigh"],["Anxious","grounding"],["Feeling low","selfcomp"],["Can't sleep","bedtime"]];
+const HELP=`<div class="card help"><b>You don't have to carry it alone.</b> These practices can ease stress and lift mood, but they aren't a replacement for professional care. If you're struggling or thinking about harming yourself, please reach out to someone you trust — in the US you can call or text <b>988</b>, or contact your local emergency number.</div>`;
+const SCALE={beginner:.8,intermediate:1,athlete:1.25};
+const LVI={beginner:1,intermediate:2,athlete:3};
+/* Daily workout: a different focus each weekday, with exercises picked fresh for each date. */
+const FOCUS=[
+ {name:"Restore",cat:"yoga",blurb:"Slow stretches and a longer rest to reset the week.",warm:["catcow","cobra","standfold","mountain"],main:["child","seatfold","kneeschest","lunge","tree","bridge","triangle","puppy","sphinx","butterfly","twist","happybaby","pigeon"],cool:["seatfold","kneeschest","child","twist","legsup","happybaby"],rest:true},
+ {name:"Pilates Core",cat:"pilates",blurb:"Deep-core control from the classical mat work.",warm:["toetap","bridge","birddog","deadbug"],main:["hundred","sls","circles","rollball","dls","crisscross","rollup","scissors","teaser","deadbug","saw","spinestretch"],cool:["child","kneeschest"]},
+ {name:"Yoga Flow",cat:"yoga",blurb:"Breath-linked movement to build heat and focus.",warm:["mountain","catcow","standfold"],main:["dog","lunge","warrior","triangle","chair","cobra","crescent","sunflow","warrior1","goddess","boat","locust"],cool:["child","seatfold"]},
+ {name:"Balance & Mobility",cat:"yoga",blurb:"Open the hips and spine, then find your balance.",warm:["catcow","mountain","cobra"],main:["tree","lunge","triangle","birddog","bridge","dog","warrior3","crescent","pigeon","garland","goddess","butterfly","mermaid"],cool:["seatfold","kneeschest"]},
+ {name:"Pilates Strength",cat:"pilates",blurb:"Glutes, shoulders and core working together.",warm:["birddog","bridge","toetap","clam"],main:["sideleg","rollball","sls","circles","bridge","slbridge","swim","plank","scissors","rollup","teaser","pushup","clam","swan","saw","deadbug"],cool:["child","seatfold"]},
+ {name:"Strong Yoga",cat:"yoga",blurb:"Standing poses that build strength and stamina.",warm:["mountain","standfold","catcow"],main:["chair","warrior","triangle","tree","dog","crescent","warrior3","sunflow","plank","warrior1","goddess","garland","boat","sideplank"],cool:["child","kneeschest"]},
+ {name:"Full-Body Blend",cat:"pilates",label:"Yoga + Pilates",blurb:"The best of both: strength, flow and core.",warm:["catcow","toetap","mountain"],main:["chair","bridge","warrior","hundred","birddog","triangle","sideleg","dog","slbridge","crescent","swim","warrior1","clam","swan","goddess","deadbug"],cool:["child","seatfold"]}
+];
+function seeded(str){let h=2166136261;for(const c of str){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return()=>{h^=h<<13;h^=h>>>17;h^=h<<5;return((h>>>0)%1e6)/1e6}}
+function pick(arr,n,rnd){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,n)}
+function dailySession(d=new Date(),level=S.level){
+  const F=FOCUS[d.getDay()],L=LVI[level],ok=id=>(EX[id].lvl||1)<=L,rnd=seeded(dkey(d)+"|"+level);
+  const warm=pick(F.warm.filter(ok),2,rnd),main=pick(F.main.filter(id=>ok(id)&&!warm.includes(id)),{beginner:4,intermediate:5,athlete:6}[level],rnd);
+  const cool=pick(F.cool.filter(id=>ok(id)&&!main.includes(id)),1,rnd);
+  const f=SCALE[level]*intensity(), sec=(id,b)=>Math.max(20,Math.round(b*(id==="sunflow"?2.4:1)*f/5)*5);
+  const steps=[...warm.map(id=>[id,sec(id,60)]),...main.map(id=>[id,sec(id,75)]),...cool.map(id=>[id,sec(id,75)])];
+  if(F.rest) steps.push(["scan",120]);
+  return {id:"daily-"+dkey(d),daily:true,day:d.toLocaleDateString(undefined,{weekday:"long"}),title:F.name,label:F.label,cat:F.cat,levels:ALL,blurb:F.blurb,thumb:main[0],steps,fixed:true};
+}
+const catLabel=s=>s.label||CATS[s.cat];
+/* Rated workouts nudge the daily workout: each "easy" adds 5%, each "hard" takes 5% off (last 10 ratings, 80–150%). */
+function intensity(){
+  const r=(S.log||[]).filter(w=>w.feel).slice(-10);
+  const v=1+.05*r.reduce((a,w)=>a+(w.feel==="easy"?1:w.feel==="hard"?-1:0),0);
+  return Math.min(1.5,Math.max(.8,v));
+}
+const LEVELS={beginner:"Beginner",intermediate:"Intermediate",athlete:"Athlete"};
+const CATS={all:"All",mindfulness:"Mindfulness",meditation:"Meditation",breath:"Breathwork",yoga:"Yoga",pilates:"Pilates"};
+/* Daily intentions — one per day, matched to how you checked in. th = theme. */
+const THEMES={calm:"Calm",letgo:"Letting go",kind:"Self-kindness",strength:"Strength",present:"Presence",hope:"Hope"};
+const INTENTIONS=[
+ {th:"calm",t:"Breathe first. Then decide."},
+ {th:"calm",t:"Soft face, steady breath."},
+ {th:"calm",t:"Slow is also a speed."},
+ {th:"calm",t:"Nature does not hurry, yet everything is accomplished.",a:"Lao Tzu"},
+ {th:"calm",t:"The breath is always here. Come back to it as often as you need."},
+ {th:"calm",t:"Calm isn't the absence of storms. It's knowing where your anchor is."},
+ {th:"calm",t:"Let your exhale be longer than your worry."},
+ {th:"calm",t:"Unclench your jaw. Drop your shoulders. Begin again."},
+ {th:"calm",t:"There is no rush in this moment."},
+ {th:"calm",t:"Peace is a practice, not a place."},
+ {th:"letgo",t:"Exhale what you're done carrying."},
+ {th:"letgo",t:"You can set it down, even just for this breath."},
+ {th:"letgo",t:"Let go of how it should be. Meet it as it is."},
+ {th:"letgo",t:"Thoughts are visitors. You don't have to make them tea."},
+ {th:"letgo",t:"We suffer more often in imagination than in reality.",a:"Seneca"},
+ {th:"letgo",t:"Hold on to what nourishes. Release what weighs."},
+ {th:"letgo",t:"Not every thought deserves a reply."},
+ {th:"letgo",t:"Loosen your grip on today. It will still hold you."},
+ {th:"letgo",t:"What you allow, softens."},
+ {th:"letgo",t:"Leave the day on the mat."},
+ {th:"kind",t:"Speak to yourself like someone you love."},
+ {th:"kind",t:"Rest is not a reward. It's a need."},
+ {th:"kind",t:"You are allowed to go gently."},
+ {th:"kind",t:"Let today's practice meet today's body."},
+ {th:"kind",t:"Small, kind, consistent."},
+ {th:"kind",t:"You don't have to earn your own compassion."},
+ {th:"kind",t:"Be patient with the parts of you that are still healing."},
+ {th:"kind",t:"Gentleness is a form of strength."},
+ {th:"kind",t:"Progress, not perfection."},
+ {th:"kind",t:"Your worth isn't measured in productivity."},
+ {th:"strength",t:"Strength can be quiet."},
+ {th:"strength",t:"Move like you mean it. Rest like you deserve it."},
+ {th:"strength",t:"Progress lives in the reps no one sees."},
+ {th:"strength",t:"Effort and ease can share a breath."},
+ {th:"strength",t:"You have power over your mind — not outside events. Realize this, and you will find strength.",a:"Marcus Aurelius"},
+ {th:"strength",t:"Steady roots, open heart."},
+ {th:"strength",t:"You've made it through every hard day so far."},
+ {th:"strength",t:"Stand tall. You've carried heavier things."},
+ {th:"strength",t:"Courage is often just one more breath."},
+ {th:"strength",t:"Show up for yourself the way you show up for others."},
+ {th:"present",t:"Arrive before you achieve."},
+ {th:"present",t:"Be where your feet are."},
+ {th:"present",t:"Notice one thing you usually rush past."},
+ {th:"present",t:"This breath. Then the next one."},
+ {th:"present",t:"The present moment is the only place life happens."},
+ {th:"present",t:"Feel the ground. It's holding you."},
+ {th:"present",t:"Do one thing at a time, and do it fully."},
+ {th:"present",t:"Listen more closely to the quiet."},
+ {th:"present",t:"Wherever you are, be all there.",a:"Jim Elliot"},
+ {th:"present",t:"Yoga is the journey of the self, through the self, to the self.",a:"The Bhagavad Gita"},
+ {th:"hope",t:"Every exhale makes room for something new."},
+ {th:"hope",t:"Even the longest night ends in sunrise."},
+ {th:"hope",t:"Feelings are weather. You are the sky."},
+ {th:"hope",t:"Small steps still move you forward."},
+ {th:"hope",t:"Today you only need to do the next right thing."},
+ {th:"hope",t:"Bloom at your own pace."},
+ {th:"hope",t:"Something good is still possible today."},
+ {th:"hope",t:"You are not behind. You are on your own path."},
+ {th:"hope",t:"Hard days end. You'll still be here, a little wiser."},
+ {th:"hope",t:"Be gentle with yourself. You're doing better than you think."}
+];
+function todayIntention(off=S.intOff||0){
+  const now=new Date(),doy=Math.floor((now-new Date(now.getFullYear(),0,0))/864e5),c=S.checkins[dkey()];
+  let th=null; if(c){ if(c.spirit<=2) th=["hope","kind"]; else if(c.mind<=2) th=["calm","letgo"]; else if(c.energy<=2) th=["kind","strength"]; }
+  const pool=th?INTENTIONS.filter(q=>th.includes(q.th)):INTENTIONS;
+  const order=pick(pool,pool.length,seeded("intent|"+now.getFullYear()+"|"+(th||"all")));
+  return order[(doy+off)%order.length];
+}
+
+/* ------------------------------------------------------------------
+   STATE + STORAGE
+------------------------------------------------------------------- */
+const ls={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const S={sleepMin:ls.get("still.sleep",0),sound:{mind:"pad",move:"off",sleep:"ocean",...ls.get("still.sound",{})},vol:ls.get("still.vol",.6),level:ls.get("still.level","beginner"),cat:"all",need:"all",intOff:0,showAll:false,checkins:ls.get("still.checkins",{}),log:ls.get("still.log",[]),chat:[],coachCtx:null,draft:{},photo:null};
+let DB=null,UID=null,SAMPLE=null,IMG_OK=false;
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dkey=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+
+async function initCaps(){
+  const C=window.claude; if(!C||!C.use) return;
+  try{
+    const [db,user,sample]=await Promise.all([C.use("db"),C.use("user"),C.use("sample")]);
+    SAMPLE=sample||null;
+    if(SAMPLE){try{const l=await SAMPLE.limits();IMG_OK=!!(l&&l.images)}catch(e){}}
+    if(db&&user){const id=await user.id(); if(id){DB=db;UID=id;await Promise.all([loadCheckins(),loadLog()])}}
+  }catch(e){}
+  render();
+}
+async function loadCheckins(){
+  try{
+    const snap=await DB.collection("data/users/"+UID).where("type","==","checkin").get();
+    snap.docs.forEach(d=>{const v=d.data(); if(v&&v.date) S.checkins[v.date]=v});
+    ls.set("still.checkins",S.checkins);
+  }catch(e){}
+}
+async function loadLog(){
+  try{
+    const snap=await DB.collection("data/users/"+UID).where("type","==","workout").get();
+    const byId={}; S.log.forEach(w=>byId[w.id]=w);
+    snap.docs.forEach(d=>{const v=d.data(); if(v&&v.id){const {type,...w}=v; byId[w.id]={...byId[w.id],...w}}});
+    S.log=Object.values(byId).sort((a,b)=>a.at-b.at); ls.set("still.log",S.log);
+  }catch(e){}
+}
+async function saveWorkout(w){
+  const i=S.log.findIndex(x=>x.id===w.id); if(i>=0) S.log[i]=w; else S.log.push(w);
+  ls.set("still.log",S.log);
+  if(DB&&UID){try{await DB.collection("data/users/"+UID).doc("workout-"+w.id).set({type:"workout",...w})}catch(e){}}
+}
+async function saveCheckin(c){
+  S.checkins[c.date]=c; ls.set("still.checkins",S.checkins);
+  if(DB&&UID){try{await DB.collection("data/users/"+UID).doc("checkin-"+c.date).set({type:"checkin",...c})}catch(e){}}
+}
+
+/* ------------------------------------------------------------------
+   FIGURE ANIMATION
+------------------------------------------------------------------- */
+const FIGS=new Set();
+const ease=x=>(1-Math.cos(Math.PI*x))/2;
+function poseAt(frames,dur,t){
+  if(frames.length===1) return frames[0];
+  const n=frames.length,ph=((t%dur)/dur)*n,i=Math.floor(ph),f=ease(ph-i),a=frames[i],b=frames[(i+1)%n],o={};
+  for(const k in a) o[k]=[a[k][0]+(b[k][0]-a[k][0])*f,a[k][1]+(b[k][1]-a[k][1])*f];
+  return o;
+}
+function makeFigure(exId,{stroke=7,paused=false}={}){
+  const ex=EX[exId],ns="http://www.w3.org/2000/svg",svg=document.createElementNS(ns,"svg");
+  svg.setAttribute("viewBox","0 -24 240 224"); svg.setAttribute("class","fig");
+  if(ex.kind==="breath"){ // abstract breathing glyph for thumbnails
+    svg.innerHTML=`<circle cx="120" cy="88" r="44" fill="#DDE5D6"/><circle cx="120" cy="88" r="70" fill="none" stroke="#C9D3C1" stroke-width="1.5"/><circle cx="120" cy="88" r="92" fill="none" stroke="#E0E5DA" stroke-width="1"/>`;
+    const c=svg.firstChild; const fig={svg,update:t=>{const s=.8+.2*Math.sin(t/1600);c.setAttribute("r",44*s)},t:0,playing:true}; FIGS.add(fig); return fig;
+  }
+  const pl=(c,w)=>`<polyline fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  svg.innerHTML=`<line x1="14" y1="186" x2="226" y2="186" stroke="#E4DFD6" stroke-width="2" stroke-linecap="round"/><ellipse cx="120" cy="187" rx="70" ry="3" fill="#000" opacity=".04"/>`+
+    pl("#C3BBAE",stroke)+pl("#C3BBAE",stroke)+pl("#2A2925",stroke+1)+pl("#2A2925",stroke)+pl("#2A2925",stroke)+`<circle r="11" fill="#2A2925"/>`;
+  const [fl,fa,sp,nl,na]=svg.querySelectorAll("polyline"),hd=svg.querySelector("circle");
+  const P=a=>a.map(p=>p[0].toFixed(1)+","+(p[1]+6).toFixed(1)).join(" ");
+  const fig={svg,t:Math.random()*ex.dur,playing:!paused,frames:ex.frames,dur:ex.dur,update(t){
+    const q=poseAt(this.frames,this.dur,t);
+    fl.setAttribute("points",P([q.p,q.rk,q.rf])); fa.setAttribute("points",P([q.n,q.re,q.rh]));
+    sp.setAttribute("points",P([q.n,q.m,q.p])); nl.setAttribute("points",P([q.p,q.lk,q.lf])); na.setAttribute("points",P([q.n,q.le,q.lh]));
+    hd.setAttribute("cx",q.h[0]); hd.setAttribute("cy",q.h[1]+6);
+  }};
+  fig.update(fig.t); FIGS.add(fig); return fig;
+}
+let last=performance.now();
+function loop(now){
+  const dt=now-last; last=now;
+  FIGS.forEach(f=>{ if(!f.svg.isConnected){FIGS.delete(f);return} if(f.playing){f.t+=dt;f.update(f.t)} });
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+function mountFig(el,exId,opts){ const f=makeFigure(exId,opts); el.appendChild(f.svg); return f; }
+
+/* ------------------------------------------------------------------
+   HELPERS
+------------------------------------------------------------------- */
+function sessionSteps(s,level=S.level){
+  return s.steps.map(([id,sec])=>({id,sec:s.fixed?sec:Math.max(20,Math.round(sec*SCALE[level]/5)*5)}));
+}
+const mins=s=>Math.max(1,Math.round(sessionSteps(s).reduce((a,b)=>a+b.sec,0)/60));
+function recommend(){
+  const c=S.checkins[dkey()],L=S.level,by=id=>SESSIONS.find(s=>s.id===id);
+  if(c){
+    if(c.spirit<=2) return [by(["selfcomp","weather","kind","moodlift"][new Date().getDate()%4]),"Spirit feels low today. Here's something gentle — be kind to yourself."];
+    if(c.mind<=2) return [by(c.energy>=4?"grounding":["leaves","calm","sigh"][new Date().getDate()%3]),"Your mind feels busy today — this can help you let some of it go."];
+    if(c.body<=2) return [by(L==="athlete"?"recover":"arrive"),"Your body is asking for something gentle."];
+    if(c.energy<=2) return [by("bright"),"Low on energy — a gently energizing breath to lift you."];
+    if(c.energy>=4&&c.body>=4) return [by(L==="beginner"?"core1":"core2"),"You've got energy to spare — let's build strength."];
+  }
+  return [by({beginner:"arrive",intermediate:"sun",athlete:"recover"}[L]),"Picked for your level."];
+}
+function greeting(){const h=new Date().getHours();return h<5?"Still up?":h<12?"Good morning":h<17?"Good afternoon":"Good evening"}
+function sessionCard(s){
+  const b=document.createElement("button"); b.className="card session fade";
+  b.innerHTML=`<div class="thumb"></div><div style="flex:1;min-width:0"><span class="tag ${s.cat}">${catLabel(s)}</span><h3 style="margin-top:6px">${esc(s.title)}</h3><div class="muted small">${esc(s.blurb)}</div><div class="meta">${mins(s)} min · ${s.levels.length===3?"All levels":s.levels.map(l=>LEVELS[l]).join(" · ")}</div></div>`;
+  mountFig($(".thumb",b),s.thumb,{stroke:9}); b.onclick=()=>openPlayer(s); return b;
+}
+
+/* ------------------------------------------------------------------
+   VIEWS
+------------------------------------------------------------------- */
+function levelSeg(){
+  return `<div class="seg" id="lvl">${Object.entries(LEVELS).map(([k,v])=>`<button data-l="${k}" class="${S.level===k?"on":""}">${v}</button>`).join("")}</div>`;
+}
+function bindLevel(){ $("#lvl").onclick=e=>{const l=e.target.dataset.l;if(l){S.level=l;ls.set("still.level",l);render()}} }
+
+function viewToday(v){
+  const now=new Date(),c=S.checkins[dkey()],[rec,why]=recommend(),IT=todayIntention();
+  const days=[...Array(7)].map((_,i)=>{const d=new Date(now);d.setDate(now.getDate()-6+i);return d});
+  v.innerHTML=`
+   <div class="eyebrow">${now.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</div>
+   <h1>${greeting()}.</h1>
+   <p class="muted">Mind · Body · Spirit</p>
+   <div class="card intent-card fade"><div class="row between"><div class="eyebrow">Today's intention · ${THEMES[IT.th]}</div><button class="small muted" id="newint" title="Show another intention">↻ Another</button></div>
+     <p class="intent" style="margin-top:10px">${esc(IT.t)}</p>${IT.a?`<p class="quote-by">— ${esc(IT.a)}</p>`:""}
+     <p class="note">Repeat it silently on your next exhale${c?" · chosen for how you checked in":""}.</p></div>
+   ${levelSeg()}
+   <div class="card" style="margin-top:20px">
+     ${c?`<div class="row between"><div class="eyebrow">Today's check-in</div><a href="#checkin" class="small muted">Edit</a></div>
+        <div class="bars">${["mind","body","spirit"].map(k=>`<div>${k[0].toUpperCase()+k.slice(1)}<span><b style="width:${c[k]*20}%"></b></span></div>`).join("")}</div>`
+       :`<div class="eyebrow">Daily check-in</div><h3 style="margin:6px 0 4px">How are you arriving today?</h3><p class="muted small" style="margin-bottom:14px">Thirty seconds to notice your mind, body and spirit.</p><a class="btn sage" href="#checkin">Check in</a>`}
+     <div class="week">${days.map(d=>`<div>${d.toLocaleDateString(undefined,{weekday:"narrow"})}<i class="${S.checkins[dkey(d)]?"done":""} ${dkey(d)===dkey()?"today":""}"></i></div>`).join("")}</div>
+   </div>
+   <h2>Today's workout</h2>${dailyCard()}
+   <h2>For you today</h2><p class="muted small" style="margin:-6px 0 12px">${why}</p><div id="rec"></div>
+   <h2>Need a moment?</h2><p class="muted small" style="margin:-6px 0 12px">Quick relief for how you're feeling right now.</p>
+   <div class="relief" id="relief">${RELIEF.map(([f,id])=>{const s=SESSIONS.find(x=>x.id===id);return `<button class="card" data-s="${id}"><b>${f}</b><span>${esc(s.title)} · ${mins(s)} min</span></button>`}).join("")}</div>
+   <h2>Sleep sounds</h2>
+   <button class="card sleep-card" id="sleepbtn"><div class="moon"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></div><div><h3>Drift off</h3><div class="muted small">Ocean, rain, forest and more — with a sleep timer that fades out on its own.</div></div></button>
+   <h2>A pause</h2><div id="pause"></div>`;
+  bindLevel(); bindDaily(v);
+  $("#newint",v).onclick=()=>{S.intOff++;render()};
+  $("#sleepbtn",v).onclick=openSleep;
+  $("#relief",v).onclick=e=>{const b=e.target.closest("button");if(b) openPlayer(SESSIONS.find(s=>s.id===b.dataset.s))}; $("#rec",v).appendChild(sessionCard(rec)); $("#pause",v).appendChild(sessionCard(SESSIONS.find(s=>s.id==="pause")));
+}
+
+function dailyCard(){
+  const s=dailySession(),done=S.log.find(w=>w.sid===s.id),t=new Date();t.setDate(t.getDate()+1);
+  const nx=FOCUS[t.getDay()],str=streak();
+  return `<div class="card fade"><div class="row between"><div class="eyebrow">${esc(s.day)} · ${mins(s)} min</div>${done?`<span class="done-badge">✓ Done</span>`:str?`<span class="pill">${str}-day streak</span>`:""}</div>
+   <div class="row" style="margin-top:10px;align-items:flex-start"><div class="thumb" id="dthumb" style="width:72px;height:72px"></div><div style="flex:1;min-width:0"><span class="tag ${s.cat}">${catLabel(s)}</span><h3 style="margin-top:6px">${esc(s.title)}</h3><div class="muted small">${esc(s.blurb)}</div></div></div>
+   <div class="exlist">${s.steps.map(([id,sec])=>`<span>${esc(EX[id].name)} · ${sec<60?sec+"s":Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0")}</span>`).join("")}</div>
+   <button class="btn block ${done?"ghost":""}" id="dstart">${done?"Do it again":"Start today's workout"}</button>
+   <p class="note">New moves every day. Tomorrow: ${esc(nx.name)}.</p></div>`;
+}
+function bindDaily(v){ const s=dailySession(); if($("#dthumb",v)) mountFig($("#dthumb",v),s.thumb,{stroke:9}); if($("#dstart",v)) $("#dstart",v).onclick=()=>openPlayer(s); }
+
+function viewPractice(v){
+  const list=SESSIONS.filter(s=>(S.cat==="all"||s.cat===S.cat)&&(S.need==="all"||(s.for||[]).includes(S.need))&&(S.showAll||s.levels.includes(S.level)));
+  const poses=Object.entries(EX).filter(([,e])=>!e.kind&&(S.cat==="all"||e.cat===S.cat));
+  v.innerHTML=`<div class="eyebrow">Practice</div><h1>Move with intention.</h1>${levelSeg()}
+   <div class="chips" style="margin-top:16px" id="cats">${Object.entries(CATS).map(([k,n])=>`<button class="chip ${S.cat===k?"on":""}" data-c="${k}">${n}</button>`).join("")}</div>
+   <div class="eyebrow" style="margin:18px 0 8px">What do you need?</div>
+   <div class="chips" id="needs">${Object.entries(NEEDS).map(([k,n])=>`<button class="chip ${S.need===k?"on":""}" data-n="${k}">${n}</button>`).join("")}</div>
+   <div class="row between" style="margin:22px 0 12px"><h2 style="margin:0">Sessions</h2><button class="small muted" id="all">${S.showAll?"Show my level":"Show all levels"}</button></div>
+   ${S.need==="anxiety"||S.need==="lowmood"?HELP:""}
+   <div id="list"></div>
+   ${poses.length?`<h2>Movement library</h2><p class="muted small" style="margin:-6px 0 12px">Tap any movement for an animated demo, form cues and common mistakes.</p><div class="grid" id="poses"></div>`:""}`;
+  bindLevel();
+  $("#cats").onclick=e=>{const c=e.target.dataset.c;if(c){S.cat=c;render()}};
+  $("#needs").onclick=e=>{const n=e.target.dataset.n;if(n){S.need=n;render()}};
+  $("#all").onclick=()=>{S.showAll=!S.showAll;render()};
+  const L=$("#list"); if(!list.length) L.innerHTML=`<p class="muted small">No sessions match here yet — try another filter or “Show all levels”.</p>`;
+  list.forEach(s=>L.appendChild(sessionCard(s)));
+  const G=$("#poses"); poses.forEach(([id,e])=>{const b=document.createElement("button");b.className="card pose fade";b.innerHTML=`<div class="thumb"></div><span class="tag ${e.cat}">${CATS[e.cat]}</span><b style="margin-top:6px">${e.name}</b>`;mountFig($(".thumb",b),id,{stroke:8});b.onclick=()=>openPose(id);G.appendChild(b)});
+}
+
+function streak(){
+  const days=new Set(S.log.map(w=>w.date)); let n=0; const d=new Date();
+  if(!days.has(dkey(d))) d.setDate(d.getDate()-1);
+  while(days.has(dkey(d))){n++;d.setDate(d.getDate()-1)}
+  return n;
+}
+const FEEL={easy:"Easy",right:"Just right",hard:"Hard"};
+function viewProgress(v){
+  const L=S.log,now=new Date(),wk=new Date(now);wk.setDate(now.getDate()-6);const wkKey=dkey(wk);
+  const week=L.filter(w=>w.date>=wkKey),wkMin=week.reduce((a,w)=>a+w.min,0);
+  const byDay={};L.forEach(w=>byDay[w.date]=(byDay[w.date]||0)+w.min);
+  const start=new Date(now);start.setDate(now.getDate()-27);
+  const cal=[...Array(28)].map((_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d});
+  const mo=L.filter(w=>w.date>=dkey(start)),catMin={yoga:0,pilates:0,mind:0};
+  mo.forEach(w=>{const k=w.cat==="yoga"?"yoga":w.cat==="pilates"?"pilates":"mind";catMin[k]+=w.min});
+  const maxC=Math.max(1,...Object.values(catMin));
+  const counts={};L.forEach(w=>(w.ex||[]).forEach(id=>{if(EX[id]&&!EX[id].kind)counts[id]=(counts[id]||0)+1}));
+  const top=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const pct=Math.round(intensity()*100);
+  v.innerHTML=`<div class="eyebrow">Progress</div><h1>Every practice counts.</h1><p class="muted">Your sessions, streaks and favorite moves, all in one place.</p>
+   <div class="stats">
+    <div class="card stat"><b>${streak()}</b><span>day streak</span></div>
+    <div class="card stat"><b>${week.length}</b><span>sessions this week</span></div>
+    <div class="card stat"><b>${wkMin}</b><span>minutes this week</span></div>
+    <div class="card stat"><b>${L.length}</b><span>sessions in total</span></div>
+   </div>
+   <div class="card" style="margin-top:12px"><div class="eyebrow">Last four weeks</div>
+    <div class="cal">${cal.slice(0,7).map(d=>`<span>${d.toLocaleDateString(undefined,{weekday:"narrow"})}</span>`).join("")}${cal.map(d=>{const m=byDay[dkey(d)]||0;return `<i class="${dkey(d)===dkey()?"today":""}" title="${d.toLocaleDateString()} · ${m} min" style="${m?`background:var(--sage);opacity:${Math.min(1,.35+m/40)}`:""}"></i>`}).join("")}</div>
+    <p class="note">Darker days mean more minutes practiced.</p></div>
+   <div class="card" style="margin-top:12px"><div class="row between"><div class="eyebrow">Daily workout intensity</div><b style="font-weight:500">${pct}%</b></div>
+    <div class="meter"><b style="width:${(pct-80)/70*100}%"></b></div>
+    <p class="note">Rate each workout when you finish. "Easy" makes the next daily workouts a little longer; "Hard" eases them off.</p></div>
+   <h2>This month by practice</h2>
+   <div class="card">${[["yoga","Yoga"],["pilates","Pilates"],["mind","Meditation & mindfulness"]].map(([k,n])=>`<div style="margin-bottom:12px"><div class="row between small"><span>${n}</span><span class="muted">${catMin[k]} min</span></div><div class="meter"><b style="width:${catMin[k]/maxC*100}%;background:${k==="yoga"?"var(--sage)":k==="pilates"?"var(--clay)":"#9C97B5"}"></b></div></div>`).join("")}</div>
+   ${top.length?`<h2>Most practiced moves</h2><div class="card">${top.map(([id,n])=>`<div class="hrow"><span>${esc(EX[id].name)}</span><span class="pill">${n}×</span></div>`).join("")}</div>`:""}
+   <h2>Recent sessions</h2>
+   <div class="card">${L.length?L.slice(-12).reverse().map(w=>`<div class="hrow"><div>${esc(w.title)}<small>${new Date(w.date+"T12:00").toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"})} · ${w.min} min · ${LEVELS[w.level]||""}</small></div>${w.feel?`<span class="pill">${FEEL[w.feel]}</span>`:""}</div>`).join(""):`<p class="muted small">Finish any session and it will show up here.</p>`}</div>
+   <p class="note">${DB?"Saved privately to your account.":"Saved on this device."}</p>`;
+}
+
+const SCALES=[["mind","Mind","Scattered","Clear"],["body","Body","Heavy","Strong"],["spirit","Spirit","Low","Bright"],["energy","Energy","Drained","Charged"]];
+function viewCheckin(v){
+  const today=S.checkins[dkey()]; if(!S.draft.date||S.draft.date!==dkey()) S.draft=today?{...today}:{date:dkey(),note:""};
+  const d=S.draft,ready=SCALES.every(([k])=>d[k]);
+  const days=[...Array(14)].map((_,i)=>{const x=new Date();x.setDate(x.getDate()-13+i);return S.checkins[dkey(x)]});
+  v.innerHTML=`<div class="eyebrow">Check-in</div><h1>How are you, really?</h1><p class="muted">No right answers. Just notice.</p>
+   ${SCALES.map(([k,n,lo,hi])=>`<div class="scale"><div class="row between"><h3>${n}</h3></div><div class="dots" data-k="${k}">${[1,2,3,4,5].map(i=>`<button data-i="${i}" class="${d[k]===i?"on":""}">${i}</button>`).join("")}</div><div class="ends"><span>${lo}</span><span>${hi}</span></div></div>`).join("")}
+   <h3 style="margin-bottom:10px">Anything on your mind?</h3><textarea id="note" placeholder="A word, a worry, a win…">${esc(d.note||"")}</textarea>
+   <button class="btn block" id="save" style="margin-top:16px;${ready?"":"opacity:.4"}">${today?"Update check-in":"Save check-in"}</button>
+   <div id="after"></div>
+   <h2>Last two weeks</h2>
+   <div class="card"><div class="hist">${["mind","body","spirit"].map(k=>`<span>${k}</span>`+days.map(c=>`<i style="${c?`background:var(--sage);opacity:${.2+c[k]*.16}`:""}"></i>`).join("")).join("")}</div>
+   <p class="note">${DB?"Saved privately to your account.":"Saved on this device."}</p></div>`;
+  v.querySelectorAll(".dots").forEach(g=>g.onclick=e=>{const i=+e.target.dataset.i;if(i){d[g.dataset.k]=i;d.note=$("#note").value;render()}});
+  $("#note").oninput=e=>d.note=e.target.value;
+  $("#save").onclick=async()=>{ if(!ready) return; d.note=$("#note").value; await saveCheckin({...d,at:Date.now()}); showAfter(); };
+  if(today) showAfter(true);
+}
+function showAfter(quiet){
+  const c=S.checkins[dkey()],[rec,why]=recommend(),A=$("#after"); if(!A) return;
+  A.innerHTML=`<div class="card fade" style="margin-top:18px"><div class="eyebrow">${quiet?"Today":"Thank you for checking in"}</div><p style="margin:8px 0 14px">${why}</p><div id="arec"></div>
+   ${c.spirit<=2||c.mind<=1?HELP:""}
+   ${SAMPLE?`<button class="btn ghost block" id="reflect" style="margin-top:4px">Reflect with AI</button><p id="refl" class="muted" style="margin-top:12px;white-space:pre-wrap"></p>`:""}</div>`;
+  $("#arec").appendChild(sessionCard(rec));
+  if(SAMPLE) $("#reflect").onclick=async()=>{
+    const out=$("#refl"),btn=$("#reflect"); btn.disabled=true; out.textContent="…";
+    const prompt=`You are a warm, grounded mindfulness guide in a wellness app. Today's self check-in (1 = low, 5 = high): mind ${c.mind} (scattered→clear), body ${c.body} (heavy→strong), spirit ${c.spirit} (low→bright), energy ${c.energy} (drained→charged). Their note: "${(c.note||"").slice(0,600)}". Write 3–4 short sentences in plain text: reflect back what you notice with compassion, offer one simple practice they could do in under two minutes today, and end with a one-line intention. No lists, no emojis, no diagnosis. If the note suggests they may be in crisis or unsafe, gently encourage them to reach out to someone they trust or a local crisis line.`;
+    try{ const r=await SAMPLE(prompt,{cache:false,onText:({text})=>{out.textContent=text}}); out.textContent=r.text; }
+    catch(e){ out.textContent=e&&e.code==="rate_limited"?"Taking a breath — try again in a moment.":"Reflection isn't available right now."; }
+    btn.disabled=false;
+  };
+}
+
+const SUGGEST=["Is my knee in the right spot in Warrior II?","Why does my low back hurt in the Hundred?","What can I do when I feel anxious?","Which breathing technique helps me fall asleep?"];
+function viewCoach(v){
+  v.innerHTML=`<div class="eyebrow">Coach</div><h1>Ask about your form.</h1><p class="muted small">Describe what you feel, or attach a photo of your pose${IMG_OK?"":" (photos aren't available in this view)"}. Not medical advice — stop if anything hurts.</p>
+   ${S.coachCtx?`<div class="card small" style="margin-top:14px;padding:12px 14px">Talking about <b>${esc(EX[S.coachCtx].name)}</b> · <button class="muted small" id="clr" style="text-decoration:underline">clear</button></div>`:""}
+   <div class="chat" id="chat"></div><div style="height:90px"></div>`;
+  const chat=$("#chat");
+  if(!S.chat.length){ const box=document.createElement("div"); box.className="chips"; box.style.flexWrap="wrap"; box.style.margin="0";
+    const sug=S.coachCtx?[`Am I doing ${EX[S.coachCtx].name} right?`,`What's the most common mistake in ${EX[S.coachCtx].name}?`,`Make ${EX[S.coachCtx].name} easier for me`]:SUGGEST;
+    box.innerHTML=sug.map(s=>`<button class="chip" style="white-space:normal;text-align:left">${esc(s)}</button>`).join("");
+    box.onclick=e=>{if(e.target.tagName==="BUTTON") sendCoach(e.target.textContent)}; chat.appendChild(box); }
+  S.chat.forEach(m=>chat.appendChild(msgEl(m)));
+  if($("#clr")) $("#clr").onclick=()=>{S.coachCtx=null;render()};
+  // composer
+  let comp=$("#composer"); if(comp) comp.remove();
+  comp=document.createElement("form"); comp.id="composer"; comp.className="composer";
+  comp.innerHTML=`<div style="flex:1"><div class="box">
+     <input type="text" id="q" placeholder="${SAMPLE?"Ask your coach…":"AI coach isn't available in this view"}" ${SAMPLE?"":"disabled"} autocomplete="off">
+     ${IMG_OK?`<label class="icon-btn" title="Attach a photo"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/><path d="M9 6l1.5-2h3L15 6"/></svg><input type="file" accept="image/*" id="ph" hidden></label>`:""}
+     <button class="icon-btn send" ${SAMPLE?"":"disabled"}><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div><div id="pv"></div></div>`;
+  $("#app").appendChild(comp);
+  comp.onsubmit=e=>{e.preventDefault();const q=$("#q").value.trim();if(q||S.photo){sendCoach(q||"How does my form look?");$("#q").value=""}};
+  if($("#ph")) $("#ph").onchange=e=>{const f=e.target.files[0];if(!f)return;S.photo=f;$("#pv").innerHTML=`<div class="preview"><img src="${URL.createObjectURL(f)}">Photo attached · <button type="button" id="rmph" class="muted" style="text-decoration:underline">remove</button></div>`;$("#rmph").onclick=()=>{S.photo=null;$("#pv").innerHTML=""}};
+  v.scrollTop=v.scrollHeight;
+}
+function msgEl(m){const d=document.createElement("div");d.className="msg "+(m.role==="user"?"u":"a");if(m.img){const i=document.createElement("img");i.src=m.img;d.appendChild(i)}d.appendChild(document.createTextNode(m.text||""));if(m.pending)d.classList.add("typing");return d}
+async function sendCoach(q){
+  if(!SAMPLE) return;
+  const photo=S.photo; S.photo=null;
+  S.chat.push({role:"user",text:q,img:photo?URL.createObjectURL(photo):null});
+  const reply={role:"assistant",text:"…",pending:true}; S.chat.push(reply); if(location.hash!=="#coach") location.hash="coach"; else render();
+  const ex=S.coachCtx&&EX[S.coachCtx];
+  const hist=S.chat.slice(0,-2).slice(-10).map(m=>(m.role==="user"?"User: ":"Coach: ")+m.text).join("\n");
+  const prompt=`You are Still Coach, a warm, precise yoga, Pilates, meditation and mindfulness coach inside a wellness app. The user's level: ${LEVELS[S.level]} (athletes want performance-minded cues; beginners need simple, reassuring ones).
+${ex?`They're asking about: ${ex.name}. Key cues: ${ex.tips.join("; ")}. Common mistakes: ${ex.mistakes.join("; ")}.`:""}
+Answer form questions specifically: what good alignment looks and feels like, the most likely mistake, and one cue to try right now. Under 120 words, plain text, short paragraphs; use "• " for any list. ${photo?"A photo of their pose is attached: describe honestly what you can see of their alignment, and say what you can't judge from a single still image.":""}
+For stress, anxiety or low mood, suggest a specific practice from the app (e.g. Physiological Sigh, 5-4-3-2-1 Grounding, Leaves on a Stream, Self-Compassion Break, 4-7-8 Breath). If they mention self-harm, suicidal thoughts or feeling unsafe, respond with warmth and encourage them to contact a crisis line (call or text 988 in the US) or local emergency services.
+Never diagnose. If they mention sharp pain, numbness, dizziness, pregnancy complications or an injury, tell them to stop that movement and check with a doctor or physiotherapist.
+${hist?`\nConversation so far:\n${hist}\n`:""}
+User: ${q}
+Coach:`;
+  const update=()=>{ const msgs=document.querySelectorAll("#chat .msg.a"); const el=msgs[msgs.length-1]; if(el){el.textContent=reply.text;el.classList.toggle("typing",!!reply.pending);const v=$("#view");v.scrollTop=v.scrollHeight} };
+  try{
+    const r=await SAMPLE(prompt,{cache:false,images:photo?[photo]:undefined,onText:({text})=>{reply.text=text;reply.pending=false;update()}});
+    reply.text=r.text;
+  }catch(e){ reply.text=e&&e.code==="rate_limited"?"I need a short breather — please ask again in a moment.":e&&e.code==="not_granted"?"The AI coach needs permission to run here.":"Sorry, I couldn't answer that just now."; }
+  reply.pending=false; update();
+}
+
+/* ------------------------------------------------------------------
+   POSE SHEET
+------------------------------------------------------------------- */
+function formBlock(id){
+  const e=EX[id];
+  return `<details open><summary>Form cues</summary><ul>${e.tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></details>
+   ${e.mistakes.length?`<details><summary>Common mistakes</summary><ul>${e.mistakes.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></details>`:""}
+   ${e.modify?`<details><summary>Make it easier · harder</summary><ul><li><b>Easier:</b> ${esc(e.modify)}</li><li><b>Harder:</b> ${esc(e.challenge)}</li></ul></details>`:""}`;
+}
+function openPose(id){
+  const e=EX[id],sh=$("#sheet");
+  sh.innerHTML=`<div class="ov-head"><span class="tag ${e.cat}">${CATS[e.cat]}</span><button class="icon-btn" id="x"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+   <div class="ov-body"><div class="stage" id="pst"></div><h1 style="margin-top:18px">${e.name}</h1><p class="muted" style="margin-bottom:12px">${esc(e.cue)}</p>${formBlock(id)}
+   <button class="btn block" id="ask" style="margin-top:16px">Ask the coach about this</button></div>`;
+  mountFig($("#pst"),id);
+  $("#x").onclick=()=>sh.classList.remove("open");
+  $("#ask").onclick=()=>{S.coachCtx=id;S.chat=[];sh.classList.remove("open");location.hash="coach";render()};
+  requestAnimationFrame(()=>sh.classList.add("open"));
+}
+
+/* ------------------------------------------------------------------
+   PLAYER
+------------------------------------------------------------------- */
+let PL=null,actx=null,AMB=null;
+/* ---------- SOUND: bell ding + generated ambient soundscapes (Web Audio, no files) ---------- */
+const SOUNDS={off:"Off",pad:"Soft music",bowls:"Singing bowls",forest:"Forest",birds:"Birdsong",ocean:"Ocean waves",rain:"Gentle rain",storm:"Thunderstorm"};
+function audio(){
+  if(!actx){ try{ actx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return null; } }
+  if(actx.state==="suspended") actx.resume(); return actx;
+}
+// A soft bell: a few sine partials with a quick attack and long fade. n>1 rings a rising pair.
+function ding(n=1,vol=.2){
+  const C=audio(); if(!C) return;
+  for(let k=0;k<n;k++){
+    const t0=C.currentTime+.05+k*.5,base=880*(k?1.335:1);
+    [[1,1,2.8],[2.76,.32,1.4],[5.4,.12,.7]].forEach(([r,a,len])=>{
+      const o=C.createOscillator(),g=C.createGain(); o.type="sine"; o.frequency.value=base*r;
+      g.gain.setValueAtTime(.0001,t0); g.gain.exponentialRampToValueAtTime(vol*a,t0+.006); g.gain.exponentialRampToValueAtTime(.0001,t0+len);
+      o.connect(g).connect(C.destination); o.start(t0); o.stop(t0+len+.1);
+    });
+  }
+}
+const chime=()=>ding(1);
+let NOISE={};
+function noise(C,kind){
+  if(NOISE[kind]) return NOISE[kind];
+  const len=C.sampleRate*8,b=C.createBuffer(1,len,C.sampleRate),d=b.getChannelData(0); let l=0;
+  for(let i=0;i<len;i++){ const w=Math.random()*2-1; if(kind==="brown"){ l=(l+.02*w)/1.02; d[i]=l*3.5 } else d[i]=w*.5 }
+  return NOISE[kind]=b;
+}
+function startAmb(type){
+  stopAmb(); const C=audio(); if(!C||!type||type==="off") return;
+  const out=C.createGain(),now=C.currentTime,nodes=[],A={type,out,nodes,alive:true};
+  out.gain.setValueAtTime(.0001,now); out.gain.exponentialRampToValueAtTime(Math.max(.001,S.vol),now+3); out.connect(C.destination);
+  const osc=(hz,t="sine")=>{const o=C.createOscillator();o.type=t;o.frequency.value=hz;o.start();nodes.push(o);return o};
+  const gain=v=>{const g=C.createGain();g.gain.value=v;return g};
+  const filt=(t,hz)=>{const f=C.createBiquadFilter();f.type=t;f.frequency.value=hz;return f};
+  const src=kind=>{const s=C.createBufferSource();s.buffer=noise(C,kind);s.loop=true;s.start();nodes.push(s);return s};
+  const lfo=(hz,depth,param)=>{const l=osc(hz),g=gain(depth);l.connect(g).connect(param)};
+  if(type==="pad"){ // slow, warm chord that gently swells
+    const f=filt("lowpass",800); f.connect(out); lfo(.03,350,f.frequency);
+    [110,164.81,220,277.18,329.63,440].forEach((hz,i)=>[-5,5].forEach(dt=>{
+      const o=osc(hz,i<2?"sine":"triangle"); o.detune.value=dt; const v=.045/(1+i*.5),g=gain(v);
+      lfo(.04+i*.023,v*.7,g.gain); o.connect(g).connect(f);
+    }));
+  }else if(type==="rain"){
+    src("white").connect(filt("highpass",500)).connect(filt("lowpass",5000)).connect(gain(.5)).connect(out);
+    src("brown").connect(filt("lowpass",400)).connect(gain(.6)).connect(out);
+  }else if(type==="storm"){ // heavy rain + rolling thunder at random intervals
+    src("white").connect(filt("highpass",400)).connect(filt("lowpass",7000)).connect(gain(.7)).connect(out);
+    const body=gain(.8); lfo(.07,.2,body.gain); src("brown").connect(filt("lowpass",500)).connect(body).connect(out);
+    const thunder=()=>{ if(!A.alive) return; const R=Math.random,t0=C.currentTime+.05,near=R()<.3,len=5+R()*5;
+      const s=C.createBufferSource(); s.buffer=noise(C,"brown"); s.playbackRate.value=.6+R()*.3;
+      const lp=filt("lowpass",near?900:280),g=C.createGain(); g.gain.setValueAtTime(.0001,t0);
+      let t=t0; const peak=near?1.4:.8; // a few swells = rolling rumble
+      for(let i=0,n=2+Math.floor(R()*3);i<n;i++){ const v=peak*(1-i*.22)*(.6+R()*.4); t+=i?.6+R()*1.2:(near?.05:.6+R()*.8); g.gain.exponentialRampToValueAtTime(v,t); g.gain.exponentialRampToValueAtTime(v*.35,t+.5+R()*.6); }
+      g.gain.exponentialRampToValueAtTime(.0001,t0+len); lp.frequency.setValueAtTime(near?900:280,t0); lp.frequency.exponentialRampToValueAtTime(90,t0+len);
+      s.connect(lp).connect(g).connect(out); s.start(t0,R()*4); s.stop(t0+len+.1);
+      if(near){ const c=C.createBufferSource(),cg=C.createGain(),cf=filt("lowpass",2500); c.buffer=noise(C,"white");
+        cg.gain.setValueAtTime(.0001,t0); cg.gain.exponentialRampToValueAtTime(.35,t0+.01); cg.gain.exponentialRampToValueAtTime(.0001,t0+.7);
+        c.connect(cf).connect(cg).connect(out); c.start(t0); c.stop(t0+.8); }
+      A.timer=setTimeout(thunder,12000+R()*20000); };
+    A.timer=setTimeout(thunder,3000+Math.random()*4000);
+  }else if(type==="ocean"){ // brown-noise surf that rises and falls like waves
+    const w=gain(.45); lfo(.08,.4,w.gain); src("brown").connect(filt("lowpass",650)).connect(w).connect(out);
+    const foam=gain(.05); lfo(.08,.045,foam.gain); src("white").connect(filt("bandpass",2500)).connect(foam).connect(out);
+  }else if(type==="forest"||type==="birds"){ // breeze through trees + synthesized bird calls from random directions
+    const F=type==="forest",wind=gain(F?.35:.12); lfo(.05,F?.25:.08,wind.gain); src("brown").connect(filt("lowpass",F?500:350)).connect(wind).connect(out);
+    if(F){ const leaf=gain(.03); lfo(.11,.025,leaf.gain); src("white").connect(filt("bandpass",3500)).connect(leaf).connect(out); }
+    const note=(t0,f0,f1,dur,vol,pan)=>{ const o=C.createOscillator(),g=C.createGain();
+      o.frequency.setValueAtTime(f0,t0); o.frequency.exponentialRampToValueAtTime(f1,t0+dur);
+      g.gain.setValueAtTime(.0001,t0); g.gain.exponentialRampToValueAtTime(vol,t0+dur*.15); g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+      let n=o.connect(g); if(C.createStereoPanner){ const p=C.createStereoPanner(); p.pan.value=pan; n=n.connect(p); }
+      n.connect(out); o.start(t0); o.stop(t0+dur+.05); };
+    const call=()=>{ if(!A.alive) return; const R=Math.random,t=C.currentTime+.05,pan=R()*1.6-.8,v=.06*(R()<.4?.4:1),k=Math.floor(R()*4);
+      if(k===0){ const n=3+Math.floor(R()*4),b=3200+R()*1200; for(let i=0;i<n;i++) note(t+i*.13,b,b*.7,.09,v,pan); }          // tweet-tweet-tweet
+      else if(k===1){ const n=10+Math.floor(R()*8),b=2800+R()*900; for(let i=0;i<n;i++) note(t+i*.045,b*1.1,b,.035,v*.7,pan); } // trill
+      else if(k===2){ let tt=t; const n=2+Math.floor(R()*3); for(let i=0;i<n;i++){ const f=1900+R()*1400,d=.18+R()*.12; note(tt,f,f*(R()<.5?1.25:.8),d,v*.9,pan); tt+=d+.08; } } // whistled phrase
+      else if(F){ note(t,720,600,.35,.035,pan); note(t+.5,640,520,.5,.03,pan); }                                                // distant dove
+      else { const b=4200; note(t,b,b*1.4,.06,v,pan); note(t+.09,b*1.3,b*.9,.08,v,pan); }                                       // chip-chip
+      A.timer=setTimeout(call,(F?2500:1200)+R()*(F?5000:2500)); };
+    A.timer=setTimeout(call,800);
+  }else if(type==="bowls"){ // quiet drone plus a bowl strike every ~9s
+    osc(98).connect(gain(.025)).connect(out);
+    const notes=[196,220,261.63,293.66,329.63,392];
+    const strike=()=>{ if(!A.alive) return; const t0=C.currentTime,hz=notes[Math.floor(Math.random()*notes.length)];
+      [[1,.14,9],[2.71,.05,5],[5.15,.02,2.5]].forEach(([r,a,len])=>[0,1.3].forEach(beat=>{
+        const o=C.createOscillator(),g=C.createGain(); o.frequency.value=hz*r+beat;
+        g.gain.setValueAtTime(.0001,t0); g.gain.exponentialRampToValueAtTime(a,t0+.02); g.gain.exponentialRampToValueAtTime(.0001,t0+len);
+        o.connect(g).connect(out); o.start(t0); o.stop(t0+len+.1);
+      }));
+      A.timer=setTimeout(strike,7000+Math.random()*5000);
+    };
+    strike();
+  }
+  AMB=A;
+}
+function stopAmb(){
+  SLEEP=null; if(!AMB) return; const A=AMB,C=actx; AMB=null; A.alive=false; clearTimeout(A.timer);
+  try{ const t=C.currentTime; A.out.gain.cancelScheduledValues(t); A.out.gain.setValueAtTime(Math.max(A.out.gain.value,.0002),t); A.out.gain.exponentialRampToValueAtTime(.0001,t+1.2); }catch(e){}
+  setTimeout(()=>{ A.nodes.forEach(n=>{try{n.stop()}catch(e){}}); try{A.out.disconnect()}catch(e){} },1400);
+}
+const soundKey=s=>s.cat==="yoga"||s.cat==="pilates"?"move":"mind";
+/* Sleep timer: when set, the sound keeps playing after the session ends, then fades out over the last 30 seconds. */
+const TIMERS=[0,15,30,45,60,90];
+let SLEEP=null;
+function armSleep(){ SLEEP=S.sleepMin&&AMB?{end:Date.now()+S.sleepMin*60000}:null; tickSleep(); }
+const fmtLeft=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
+function tickSleep(){
+  if(SLEEP&&AMB&&actx){
+    const left=SLEEP.end-Date.now();
+    if(left<=30000&&!SLEEP.fading){ SLEEP.fading=true; const g=AMB.out.gain,t=actx.currentTime; g.cancelScheduledValues(t); g.setValueAtTime(Math.max(g.value,.0002),t); g.exponentialRampToValueAtTime(.0001,t+Math.max(1,left/1000)); }
+    if(left<=0){ stopAmb(); refreshSoundUI(); }
+  }
+  const txt=SLEEP&&AMB?`Stops in ${fmtLeft(SLEEP.end-Date.now())}`:AMB?"Playing":"";
+  document.querySelectorAll(".sleepleft").forEach(el=>el.textContent=txt);
+  const bar=$("#sleepbar"),show=!!AMB&&!$("#player").classList.contains("open")&&!$("#sheet").classList.contains("open");
+  bar.hidden=!show; $("#app").classList.toggle("has-bar",show); bar.classList.toggle("high",!!$("#composer"));
+  if(show) $("#sbtxt").textContent=`${SOUNDS[AMB.type]} · ${SLEEP?fmtLeft(SLEEP.end-Date.now())+" left":"playing"}`;
+}
+setInterval(tickSleep,1000);
+function soundRow(key){
+  const cur=S.sound[key]||"off";
+  return `<div class="sound"><div class="row between"><div class="eyebrow">${key==="sleep"?"Sound":"Background sound"}</div><span class="small muted sleepleft"></span></div>
+   <div class="chips snd">${Object.entries(SOUNDS).filter(([k])=>key!=="sleep"||k!=="off").map(([k,n])=>`<button class="chip ${cur===k?"on":""}" data-snd="${k}">${n}</button>`).join("")}</div>
+   ${cur==="off"?"":`<label class="vol"><span>Volume</span><input type="range" class="volr" min="0.05" max="1" step="0.05" value="${S.vol}"></label>
+   <div class="eyebrow" style="margin-top:14px">Sleep timer</div>
+   <div class="chips tmr">${TIMERS.map(m=>`<button class="chip ${S.sleepMin===m?"on":""}" data-tm="${m}">${m?m+" min":"Off"}</button>`).join("")}</div>
+   <p class="note">${S.sleepMin?`Sound keeps playing after the session ends, then fades out after ${S.sleepMin} minutes.`:"Sound stops when the session ends."}</p>`}</div>`;
+}
+let SOUNDUI=[];
+function refreshSoundUI(){ SOUNDUI=SOUNDUI.filter(u=>u.el.isConnected); SOUNDUI.forEach(u=>{u.el.innerHTML=soundRow(u.key);u.bind()}); tickSleep(); }
+function bindSound(el,key,isPlaying,onPick){
+  const bind=()=>{
+    el.querySelector(".snd").onclick=e=>{ const k=e.target.dataset.snd; if(!k) return;
+      S.sound[key]=k; ls.set("still.sound",S.sound);
+      if(isPlaying()){ startAmb(k); armSleep(); } else if(onPick) onPick(k); refreshSoundUI(); };
+    const v=el.querySelector(".volr"); if(v) v.oninput=e=>{ S.vol=+e.target.value; ls.set("still.vol",S.vol); if(AMB&&actx&&!(SLEEP&&SLEEP.fading)) AMB.out.gain.setTargetAtTime(S.vol,actx.currentTime,.1); };
+    const t=el.querySelector(".tmr"); if(t) t.onclick=e=>{ const m=e.target.dataset.tm; if(m==null) return;
+      S.sleepMin=+m; ls.set("still.sleep",S.sleepMin); if(AMB){ if(SLEEP&&SLEEP.fading) startAmb(AMB.type); armSleep(); } refreshSoundUI(); };
+  };
+  el.innerHTML=soundRow(key); bind(); SOUNDUI.push({el,key,bind}); tickSleep();
+}
+function openSleep(){
+  const sh=$("#sheet"),playing=()=>!!AMB;
+  sh.innerHTML=`<div class="ov-head"><span class="tag meditation">Sleep</span><button class="icon-btn" id="x"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+   <div class="ov-body"><div class="stage"><div class="orb big" id="sorb"></div></div><h1 style="margin-top:18px">Sleep sounds</h1>
+   <p class="muted">Pick a sound and a timer, then put your phone down. It fades out gently on its own.</p>
+   <button class="btn block" id="slplay" style="margin-top:16px"></button><div id="slsnd"></div></div>`;
+  const btn=$("#slplay"),paint=()=>{btn.textContent=AMB?"Stop":"Play";$("#sorb").style.transform=`scale(${AMB?1:.8})`};
+  btn.onclick=()=>{ if(AMB) stopAmb(); else { startAmb(S.sound.sleep||"ocean"); armSleep(); } paint(); refreshSoundUI(); };
+  bindSound($("#slsnd"),"sleep",playing); paint();
+  $("#x").onclick=()=>{sh.classList.remove("open");setTimeout(tickSleep,50)};
+  requestAnimationFrame(()=>sh.classList.add("open"));
+}
+const ICON={play:`<svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><path d="M8 5v14l11-7z"/></svg>`,pause:`<svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>`};
+function openPlayer(s){
+  closePlayer(true);
+  PL={s,steps:sessionSteps(s),i:0,el:0,playing:false,fig:null,tick:null,lastT:0};
+  const p=$("#player");
+  p.innerHTML=`<div class="ov-head"><div><div class="eyebrow">${catLabel(s)}</div><div style="font-family:var(--serif);font-size:18px">${esc(s.title)}</div></div><button class="icon-btn" id="px"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+   <div class="ov-body" id="pb"></div>`;
+  $("#px").onclick=()=>closePlayer();
+  renderStep(); requestAnimationFrame(()=>p.classList.add("open"));
+}
+function closePlayer(silent){ if(!PL) return; clearInterval(PL.tick); if(!SLEEP) stopAmb(); PL=null; if(!silent){ $("#player").classList.remove("open"); setTimeout(()=>{ if(!PL) $("#player").innerHTML="" },600); } setTimeout(tickSleep,50); }
+function renderStep(){
+  const st=PL.steps[PL.i],e=EX[st.id],B=$("#pb");
+  B.innerHTML=`<div class="steps">${PL.steps.map((_,i)=>`<i class="${i<PL.i?"done":i===PL.i?"cur":""}"></i>`).join("")}</div>
+   <div class="stage fade" id="stg">${e.kind?`<div class="orb ${e.kind==="breath"?"big":""}" id="orb"></div><div class="orb-label" id="ol">Ready</div>`:""}</div>
+   <div class="row between" style="margin-top:18px;align-items:flex-end"><div style="min-width:0"><div class="eyebrow">Step ${PL.i+1} of ${PL.steps.length}</div><h1 style="font-size:28px;margin-top:4px">${e.name}</h1></div><div class="timer" id="tm"></div></div>
+   <p class="muted" id="cue" style="min-height:42px">${esc(e.cue)}</p>
+   <div class="progress"><b id="pg"></b></div>
+   <div class="controls"><button class="icon-btn" id="prev" title="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="icon-btn play" id="pp">${PL.playing?ICON.pause:ICON.play}</button><button class="icon-btn" id="next" title="Next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
+   <div id="sndwrap"></div>
+   ${e.tips?formBlock(st.id):""}
+   <button class="btn ghost block" id="pask" style="margin-top:14px">Not sure you're doing it right? Ask the coach</button>`;
+  if(e.kind!=="breath"){ PL.fig=mountFig($("#stg"),st.id,{paused:!PL.playing}); PL.fig.playing=PL.playing; } else PL.fig=null;
+  $("#pp").onclick=togglePlay; $("#prev").onclick=()=>go(-1); $("#next").onclick=()=>go(1);
+  bindSound($("#sndwrap"),soundKey(PL.s),()=>PL&&PL.playing,k=>{ if(k==="off") return stopAmb(); startAmb(k); setTimeout(()=>{ if(PL&&!PL.playing) stopAmb() },4000) }); // short preview while paused
+  $("#pask").onclick=()=>{ S.coachCtx=st.id; S.chat=[]; if(PL.playing) togglePlay(); $("#player").classList.remove("open"); location.hash="coach"; render(); };
+  paintTime();
+}
+function togglePlay(){
+  audio();
+  PL.playing=!PL.playing; $("#pp").innerHTML=PL.playing?ICON.pause:ICON.play; if(PL.fig) PL.fig.playing=PL.playing;
+  clearInterval(PL.tick);
+  const snd=S.sound[soundKey(PL.s)];
+  if(PL.playing){ if(!AMB||AMB.type!==snd||(SLEEP&&SLEEP.fading)){ startAmb(snd); armSleep(); } } else stopAmb();
+  if(PL.playing){ if(PL.el===0&&PL.i===0) ding(1,.12); PL.lastT=Date.now(); PL.tick=setInterval(()=>{ const n=Date.now(); PL.el+=(n-PL.lastT)/1000; PL.lastT=n; if(PL.el>=PL.steps[PL.i].sec){ go(1,true) } else paintTime(); },200); }
+}
+function go(d,auto){
+  const n=PL.i+d;
+  if(n<0) { PL.el=0; return paintTime(); }
+  if(n>=PL.steps.length){ return finish(); }
+  PL.i=n; PL.el=0; PL.lastT=Date.now(); if(auto) chime(); renderStep();
+}
+function paintTime(){
+  const st=PL.steps[PL.i],e=EX[st.id],left=Math.max(0,Math.ceil(st.sec-PL.el));
+  $("#tm").textContent=Math.floor(left/60)+":"+String(left%60).padStart(2,"0");
+  $("#pg").style.width=(PL.el/st.sec*100)+"%";
+  if(e.script){ let t=e.script[0][1]; e.script.forEach(([at,txt])=>{ if(PL.el>=at) t=txt }); const c=$("#cue"); if(c.textContent!==t){ c.textContent=t; c.classList.remove("fade"); void c.offsetWidth; c.classList.add("fade"); } }
+  if(e.pattern){
+    const [a,b,c,d]=e.pattern,tot=a+b+c+d,x=PL.el%tot; let lab,sc;
+    const LB=e.labels?(Array.isArray(e.labels[0])?e.labels[Math.floor(PL.el/tot)%e.labels.length]:e.labels):["Breathe in","Hold","Breathe out","Hold"];
+    if(x<a){lab=LB[0];sc=.6+.4*(x/a)} else if(x<a+b){lab=LB[1];sc=1} else if(x<a+b+c){lab=LB[2];sc=1-.4*((x-a-b)/c)} else {lab=LB[3];sc=.6}
+    const cnt=Math.ceil(x<a?a-x:x<a+b?a+b-x:x<a+b+c?a+b+c-x:tot-x);
+    $("#orb").style.transform=`scale(${sc})`; $("#ol").textContent=PL.playing?`${lab} · ${cnt}`:"Press play";
+  }
+}
+function finish(){
+  clearInterval(PL.tick); if(!SLEEP) stopAmb(); ding(2); const s=PL.s; PL.playing=false;
+  const w={id:String(Date.now()),at:Date.now(),date:dkey(),sid:s.id,title:s.daily?`${s.title} (daily)`:s.title,cat:s.cat,min:mins(s),level:S.level,ex:PL.steps.map(x=>x.id),feel:null};
+  saveWorkout(w);
+  const moving=s.cat==="yoga"||s.cat==="pilates";
+  $("#pb").innerHTML=`<div class="fade" style="text-align:center;padding-top:40px"><div class="orb big" style="position:relative;margin:0 auto;transform:scale(.8)"></div>
+   <h1 style="margin-top:24px">Well done.</h1><p class="muted">${esc(s.title)} · ${mins(s)} min · ${streak()}-day streak</p>
+   ${moving?`<div class="card" style="margin:24px 0 0;text-align:left"><div class="eyebrow">How did that feel?</div><div class="feel" id="feel">${Object.entries(FEEL).map(([k,n])=>`<button data-f="${k}">${n}</button>`).join("")}</div><p class="note" id="feelnote">Your answer tunes the length of your next daily workouts.</p></div>`
+     :`<p class="intent" style="margin:28px 8px 6px">Take one breath to notice how you feel now.</p>`}
+   <div class="card intent-card" style="margin-top:20px;text-align:left"><div class="eyebrow">Carry this with you</div><p class="intent" style="font-size:19px;margin-top:8px">${esc(todayIntention().t)}</p></div>
+   <button class="btn block" id="done" style="margin-top:18px">Close</button>
+   <a class="btn ghost block" href="#progress" id="prog" style="margin-top:10px">See your progress</a>
+   ${S.checkins[dkey()]?"":`<a class="btn ghost block" href="#checkin" id="ci" style="margin-top:10px">Check in now</a>`}</div>`;
+  if($("#feel")) $("#feel").onclick=e=>{const f=e.target.dataset.f;if(!f)return;w.feel=f;saveWorkout(w);$("#feel").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.f===f));$("#feelnote").textContent=`Saved. Daily workout intensity is now ${Math.round(intensity()*100)}%.`};
+  $("#done").onclick=()=>{closePlayer();render()}; $("#prog").onclick=()=>closePlayer(); if($("#ci")) $("#ci").onclick=()=>closePlayer();
+}
+
+/* ------------------------------------------------------------------
+   ROUTER
+------------------------------------------------------------------- */
+const VIEWS={today:viewToday,practice:viewPractice,checkin:viewCheckin,progress:viewProgress,coach:viewCoach};
+function render(){
+  const name=(location.hash||"#today").slice(1),fn=VIEWS[name]||viewToday,v=$("#view");
+  const keep=v.scrollTop,same=v.dataset.v===name; v.dataset.v=name;
+  if(name!=="coach"&&$("#composer")) $("#composer").remove();
+  fn(v);
+  document.querySelectorAll("#tabs a").forEach(a=>a.classList.toggle("on",a.dataset.v===(VIEWS[name]?name:"today")));
+  if(name!=="coach") v.scrollTop=same?keep:0;
+}
+window.addEventListener("hashchange",()=>{ if(PL&&location.hash==="#checkin") closePlayer(); render(); });
+$("#sbstop").onclick=()=>{stopAmb();refreshSoundUI()};
+$("#sbopen").onclick=openSleep;
+render(); initCaps();
+</script>
+<script>
+if("serviceWorker" in navigator&&location.protocol!=="file:")addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+// The AI coach only runs inside Claude; send anyone landing on #coach to today.
+if(document.documentElement.classList.contains("no-ai")&&location.hash==="#coach")location.hash="today";
+</script>
+</body>
+</html>
