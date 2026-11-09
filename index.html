@@ -898,7 +898,7 @@ function viewPractice(v){
    <div class="row between" style="margin:22px 0 12px"><h2 style="margin:0">Sessions</h2><button class="small muted" id="all">${S.showAll?"Show my level":"Show all levels"}</button></div>
    ${S.need==="anxiety"||S.need==="lowmood"?HELP:""}
    <div id="list"></div>
-   ${poses.length?`<h2>Movement library</h2><p class="muted small" style="margin:-6px 0 12px">Tap any movement for an animated demo, form cues and common mistakes.</p><div class="grid" id="poses"></div>`:""}`;
+   ${poses.length?`<h2>Movement library</h2><p class="muted small" style="margin:-6px 0 12px">Tap any movement for an animated demo, form cues, common mistakes and videos of real people.</p><div class="grid" id="poses"></div>`:""}`;
   bindLevel();
   $("#cats").onclick=e=>{const c=e.target.dataset.c;if(c){S.cat=c;render()}};
   $("#needs").onclick=e=>{const n=e.target.dataset.n;if(n){S.need=n;render()}};
@@ -1032,11 +1032,14 @@ Coach:`;
 /* ------------------------------------------------------------------
    POSE SHEET
 ------------------------------------------------------------------- */
+// YouTube search for each move: several real instructors to choose from, and it never breaks like a single video link can.
+const yt=q=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q);
 function formBlock(id){
   const e=EX[id];
   return `<details open><summary>Form cues</summary><ul>${e.tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></details>
    ${e.mistakes.length?`<details><summary>Common mistakes</summary><ul>${e.mistakes.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></details>`:""}
-   ${e.modify?`<details><summary>Make it easier · harder</summary><ul><li><b>Easier:</b> ${esc(e.modify)}</li><li><b>Harder:</b> ${esc(e.challenge)}</li></ul></details>`:""}`;
+   ${e.modify?`<details><summary>Make it easier · harder</summary><ul><li><b>Easier:</b> ${esc(e.modify)}</li><li><b>Harder:</b> ${esc(e.challenge)}</li></ul></details>`:""}
+   ${e.kind?"":`<a class="card video" href="${yt(e.q)}" target="_blank" rel="noopener"><div class="play-dot"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div><b style="font-weight:500">Watch real people do it</b><div class="small muted">${esc(e.name)} videos on YouTube ↗</div></div></a>`}`;
 }
 function openPose(id){
   const e=EX[id],sh=$("#sheet");
