@@ -14,6 +14,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <style>html.no-ai .tabs a[data-v="coach"],html.no-ai #ask,html.no-ai #pask,html.no-ai #reflect{display:none!important}</style>
+<script>window.STILL_PWA=true;</script>
 <script>if(!(window.claude&&window.claude.use))document.documentElement.classList.add("no-ai");</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -174,6 +175,12 @@ details li{margin-bottom:4px}
 html,body,body *{text-transform:lowercase!important}
 input,textarea,.msg.u{text-transform:none!important}
 .eyebrow,.tag,.orb-label{letter-spacing:.04em!important}
+.install{margin-top:18px;border-color:#D7DECF;background:linear-gradient(160deg,#FBFAF7,#EEF1EA)}
+.isteps{margin:0 0 4px 0;padding:0;list-style:none;counter-reset:s}
+.isteps li{counter-increment:s;display:flex;align-items:center;gap:10px;font-size:14px;padding:6px 0;line-height:1.35}
+.isteps li:before{content:counter(s);width:24px;height:24px;border-radius:50%;background:var(--sage);color:#F7F4EE;font-size:12px;font-weight:600;display:grid;place-items:center;flex:none}
+.isteps b{font-weight:600}
+.shareic{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px}
 .brand{font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:.02em;color:var(--sage)}
 .sound{margin:16px 0 4px}
 .sound .chips{margin:8px 0 0;padding:0;flex-wrap:wrap;overflow:visible}
@@ -847,13 +854,38 @@ function levelSeg(){
 }
 function bindLevel(){ $("#lvl").onclick=e=>{const l=e.target.dataset.l;if(l){S.level=l;ls.set("still.level",l);render()}} }
 
+/* ---------- "add Still to your home screen" (installable web-app version only) ---------- */
+let INSTALL_PROMPT=null; // Android/Chrome: lets us show a one-tap install button
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();INSTALL_PROMPT=e;if(document.querySelector("#instcard,#view [data-v]")||(location.hash||"#today")==="#today")render()});
+addEventListener("appinstalled",()=>{ls.set("still.installed",1);INSTALL_PROMPT=null;render()});
+const isStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+function devicePlatform(){const ua=navigator.userAgent;if(/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1))return"ios";if(/Android/.test(ua))return"android";return"other"}
+const SHARE_ICON=`<svg viewBox="0 0 24 24" class="shareic"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>`;
+function installCard(){
+  if(!window.STILL_PWA||isStandalone()||ls.get("still.installed",0)||Date.now()<ls.get("still.installSnooze",0)) return "";
+  const p=devicePlatform(); if(p==="other") return "";
+  let steps,button="";
+  if(p==="ios") steps=[`tap the <b>Share</b> button ${SHARE_ICON} in Safari`,`scroll down and tap <b>Add to Home Screen</b>`,`tap <b>Add</b> — then open Still from your home screen`];
+  else if(INSTALL_PROMPT){ steps=null; button=`<button class="btn sage" id="instnow">install Still</button>`; }
+  else steps=[`tap the <b>⋮</b> menu in Chrome`,`tap <b>Install app</b> (or <b>Add to Home screen</b>)`,`tap <b>Install</b> — then open Still from your home screen`];
+  return `<div class="card install fade" id="instcard"><div class="row between"><div class="eyebrow">add Still to your home screen</div><button class="small muted" id="instlater">not now</button></div>
+   <p class="small muted" style="margin:8px 0 12px">open it like a real app — full screen, one tap away, and it works offline.</p>
+   ${steps?`<ol class="isteps">${steps.map(t=>`<li><span>${t}</span></li>`).join("")}</ol>`:""}${button}
+   ${p==="ios"?`<p class="note">don't see it? open your link in Safari first.</p>`:""}</div>`;
+}
+function bindInstall(v){
+  const later=$("#instlater",v),now=$("#instnow",v);
+  if(later) later.onclick=()=>{ls.set("still.installSnooze",Date.now()+3*864e5);render()};
+  if(now) now.onclick=async()=>{const e=INSTALL_PROMPT;if(!e)return;INSTALL_PROMPT=null;e.prompt();try{const r=await e.userChoice;if(r&&r.outcome==="accepted")ls.set("still.installed",1)}catch(err){}render()};
+}
 function viewToday(v){
   const now=new Date(),c=S.checkins[dkey()],[rec,why]=recommend(),IT=todayIntention();
   const days=[...Array(7)].map((_,i)=>{const d=new Date(now);d.setDate(now.getDate()-6+i);return d});
   v.innerHTML=`
    <div class="eyebrow">${now.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})}</div>
-   <h1>${greeting()}.</h1>
+   <h1>${greeting()}${greeting().endsWith("?")?"":"."}</h1>
    <p class="muted">Mind · Body · Spirit</p>
+   ${installCard()}
    <div class="card intent-card fade"><div class="row between"><div class="eyebrow">Today's intention · ${THEMES[IT.th]}</div><button class="small muted" id="newint" title="Show another intention">↻ Another</button></div>
      <p class="intent" style="margin-top:10px">${esc(IT.t)}</p>${IT.a?`<p class="quote-by">— ${esc(IT.a)}</p>`:""}
      <p class="note">Repeat it silently on your next exhale${c?" · chosen for how you checked in":""}.</p></div>
@@ -874,6 +906,7 @@ function viewToday(v){
   bindLevel(); bindDaily(v);
   $("#newint",v).onclick=()=>{S.intOff++;render()};
   $("#sleepbtn",v).onclick=openSleep;
+  bindInstall(v);
   $("#relief",v).onclick=e=>{const b=e.target.closest("button");if(b) openPlayer(SESSIONS.find(s=>s.id===b.dataset.s))}; $("#rec",v).appendChild(sessionCard(rec)); $("#pause",v).appendChild(sessionCard(SESSIONS.find(s=>s.id==="pause")));
 }
 
